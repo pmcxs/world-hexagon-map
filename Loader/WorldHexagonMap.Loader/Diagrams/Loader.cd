@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WorldHexagonMap.Loader.Services.LoaderService">
+    <Position X="1.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAgAAAAAIAAAAgAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\LoaderService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_geoLoaderStrategy" />
+      <Field Name="_storeService" />
+      <Field Name="_geometryToHexagonStrategyFactory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WorldHexagonMap.Loader.Strategies.LinestringLoaderStrategy">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAQABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\LinestringLoaderStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WorldHexagonMap.Loader.Strategies.PolygonLoaderStrategy">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Strategies\PolygonLoaderStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="WorldHexagonMap.Loader.Contracts.IGeoLoaderStrategy">
+    <Position X="0.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\IGeoLoaderStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WorldHexagonMap.Loader.Contracts.IGeometryToHexagonStrategy">
+    <Position X="8.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\IGeometryToHexagonStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WorldHexagonMap.Loader.Contracts.IGeometryToHexagonStrategyFactory">
+    <Position X="4.25" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Contracts\IGeometryToHexagonStrategyFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EMS.WIN.Core.Contracts.Services.IDataStoreService">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
