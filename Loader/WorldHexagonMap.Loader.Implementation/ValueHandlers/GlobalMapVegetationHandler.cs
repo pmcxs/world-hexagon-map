@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Composition;
+//using System.Composition;
 using System.Linq;
 using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain;
 
 namespace WorldHexagonMap.Loader.Implementation.ValueHandlers
 {
-    [Export("value_handler_globalmap_vegetation", typeof(IValueHandler))]
+    //[Export("value_handler_globalmap_vegetation", typeof(IValueHandler))]
     public class GlobalMapVegetationHandler : IValueHandler
     {
         public object GetValue(GeoData geoData)

@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿/*
+using Autofac;
 using WorldHexagonMap.Loader.Contracts;
 
 namespace WorldHexagonMap.Loader.Implementation
@@ -20,3 +21,4 @@ namespace WorldHexagonMap.Loader.Implementation
         }
     }
 }
+*/

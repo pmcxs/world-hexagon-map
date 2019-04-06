@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Composition;
+//using System.Composition;
 using System.Linq;
 using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain;
@@ -7,7 +7,7 @@ using WorldHexagonMap.Loader.Domain;
 namespace WorldHexagonMap.Loader.Implementation.ValueHandlers
 {
 
-    [Export("value_handler_rgb_colour", typeof(IValueHandler))]
+    //[Export("value_handler_rgb_colour", typeof(IValueHandler))]
     public class RGBColourHandler : IValueHandler
     {
         public object GetValue(GeoData geoData)

@@ -49,7 +49,7 @@
       <FileName>Contracts\IGeometryToHexagonStrategyFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="EMS.WIN.Core.Contracts.Services.IDataStoreService">
+  <Interface Name="WorldHexagonMap.Core.Contracts.Services.IDataStoreService">
     <Position X="5.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>

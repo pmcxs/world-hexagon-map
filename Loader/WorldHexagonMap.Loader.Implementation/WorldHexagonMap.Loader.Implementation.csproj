@@ -5,14 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="BitMiracle.LibTiff.NET" Version="2.4.626" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="1.15.2" />
     <PackageReference Include="NetTopologySuite.IO.ShapeFile" Version="1.15.3" />
-    <PackageReference Include="System.Composition" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WorldHexagonMap.Loader\WorldHexagonMap.Loader.csproj" />
+    <ProjectReference Include="..\..\Core\WorldHexagonMap.Core.Implementation\WorldHexagonMap.Core.Implementation.csproj" />
   </ItemGroup>
 </Project>

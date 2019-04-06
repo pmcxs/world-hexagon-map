@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Composition;
+//using System.Composition;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
 using WorldHexagonMap.Loader.Contracts;
@@ -10,7 +10,7 @@ namespace WorldHexagonMap.Loader.Implementation.PostProcessors
     /// <summary>
     /// Returns a mask indicating the various edges on which this hexagon has a downward slope 
     /// </summary>
-    [Export("postprocessor_handler_slope", typeof(IPostProcessor))]
+    //[Export("postprocessor_handler_slope", typeof(IPostProcessor))]
     public class Slope : IPostProcessor
     {
         public void ProcessHexagon(Hexagon hexagon, Hexagon[] neighbourHexagons)

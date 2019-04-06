@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Composition;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
 using WorldHexagonMap.Loader.Contracts;
@@ -15,7 +14,7 @@ namespace WorldHexagonMap.Loader.Implementation.PostProcessors
     /// The remaining bits act as a mask
     /// xxxx1
     /// </summary>
-    [Export("postprocessor_handler_area_edges", typeof(IPostProcessor))]
+    //[Export("postprocessor_handler_area_edges", typeof(IPostProcessor))]
     public class AreaEdges : IPostProcessor
     {
         public void ProcessHexagon(Hexagon hexagon, Hexagon[] neighbourHexagons)

@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Composition;
+//using System.Composition;
 using System.Linq;
 using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain;
 
 namespace WorldHexagonMap.Loader.Implementation.ValueHandlers
 {
-    [Export("value_handler_wikimedia_altitude", typeof(IValueHandler))]
+    //[Export("value_handler_wikimedia_altitude", typeof(IValueHandler))]
     public class WikimediaAltitudeHandler : IValueHandler
     {
         public object GetValue(GeoData geoData)
