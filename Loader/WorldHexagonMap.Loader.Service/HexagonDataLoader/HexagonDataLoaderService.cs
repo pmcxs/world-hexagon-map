@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -14,11 +15,12 @@ using WorldHexagonMap.Loader.HexagonParsers;
 using WorldHexagonMap.Loader.HexagonRepositories;
 using WorldHexagonMap.Loader.PostProcessors;
 using WorldHexagonMap.Loader.ResultExporters;
+using WorldHexagonMap.Loader.Service;
 using WorldHexagonMap.Loader.ValueHandlers;
 
 namespace WorldHexagonMap.Loader
 {
-    public class LoaderService : ILoaderService
+    public class HexagonDataLoaderService : IHexagonDataLoaderService
     {
         private readonly ILoaderConfiguration _configuration;
         private readonly IHexagonParserFactory _hexagonParserFactory;
@@ -27,8 +29,9 @@ namespace WorldHexagonMap.Loader
         private readonly IValueHandlerFactory _valueHandlerFactory;
         private readonly IResultExporterFactory _resultExporterFactory;
 
+        private readonly ILogger<HexagonDataLoaderService> _logger;
 
-        public LoaderService(ILoaderConfiguration configuration, IHexagonParserFactory hexagonParserFactory, IGeoDataLoaderFactory geoDataLoaderFactory, IPostProcessorFactory postProcessorFactory, IValueHandlerFactory valueHandlerFactory, IResultExporterFactory resultExportFactory)
+        public HexagonDataLoaderService(ILoaderConfiguration configuration, ILoggerFactory loggerFactory, IHexagonParserFactory hexagonParserFactory, IGeoDataLoaderFactory geoDataLoaderFactory, IPostProcessorFactory postProcessorFactory, IValueHandlerFactory valueHandlerFactory, IResultExporterFactory resultExportFactory)
         {
             _configuration = configuration;
             _hexagonParserFactory = hexagonParserFactory;
@@ -36,6 +39,8 @@ namespace WorldHexagonMap.Loader
             _postProcessorFactory = postProcessorFactory;
             _valueHandlerFactory = valueHandlerFactory;
             _resultExporterFactory = resultExportFactory;
+
+            _logger = loggerFactory.CreateLogger<HexagonDataLoaderService>();
         }
 
 
@@ -63,7 +68,7 @@ namespace WorldHexagonMap.Loader
                 MaxDegreeOfParallelism = _configuration.Parallelism
             };
 
-            //Console.WriteLine(DateTime.Now + ": Loading Data");
+            _logger.LogInformation(DateTime.Now + ": Loading Data");
 
             //2. Iterate the various source data
             Parallel.ForEach(layers.sources, options, sourceData =>
@@ -76,12 +81,12 @@ namespace WorldHexagonMap.Loader
 
                 //5. Merge Results into global result-set
                 MergeResults(result, globalResult);
-
+                
             });
             
             IEnumerable<Hexagon> results;
 
-            //Console.WriteLine(DateTime.Now + ": Post-Processing");
+            _logger.LogInformation(DateTime.Now + ": Post-Processing");
             //6. Post-Process results
             if (layers.postprocessors != null && layers.postprocessors.Any())
             {
@@ -95,7 +100,7 @@ namespace WorldHexagonMap.Loader
             //7. Export Results
             await ExportResultsAsync(results.ToArray(), exportHandler);
 
-            //Console.WriteLine(DateTime.Now + ": Process Finished in " + clock.Elapsed.TotalSeconds);
+            _logger.LogInformation(DateTime.Now + ": Process Finished in " + clock.Elapsed.TotalSeconds);
 
             return true;
         }
@@ -188,7 +193,7 @@ namespace WorldHexagonMap.Loader
         protected virtual async Task<bool> ExportResultsAsync(Hexagon[] hexagons, string exportHandler)
         {
 
-            Console.WriteLine(DateTime.Now + ": Exporting Results with " + exportHandler);
+            _logger.LogInformation(DateTime.Now + ": Exporting Results with " + exportHandler);
             IResultExporter exporter =  _resultExporterFactory.GetInstance(exportHandler);
             return await exporter.ExportResults(hexagons);
 

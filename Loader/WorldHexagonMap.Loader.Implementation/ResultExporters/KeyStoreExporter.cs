@@ -19,7 +19,6 @@ namespace WorldHexagonMap.Loader.ResultExporters
 
         public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons)
         {
-            Console.WriteLine(DateTime.Now + ": Pushing to Key Store");
 
             foreach (Hexagon hexagon in hexagons)
             {
