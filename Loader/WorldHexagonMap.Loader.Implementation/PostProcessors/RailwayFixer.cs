@@ -2,7 +2,7 @@
 using WorldHexagonMap.Core.Domain.Constants;
 using WorldHexagonMap.Loader.Contracts;
 
-namespace WorldHexagonMap.Loader.Implementation.PostProcessors
+namespace WorldHexagonMap.Loader.PostProcessors
 {
 
     /// <summary>

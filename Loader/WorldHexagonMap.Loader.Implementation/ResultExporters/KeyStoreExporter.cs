@@ -5,10 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Contracts;
-using WorldHexagonMap.Loader.Domain.Configuration;
 
-namespace WorldHexagonMap.Loader.Implementation.ResultExporters
+namespace WorldHexagonMap.Loader.ResultExporters
 {
     public class KeyStoreExporter : IResultExporter
     {

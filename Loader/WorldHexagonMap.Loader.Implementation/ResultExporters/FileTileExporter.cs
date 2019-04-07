@@ -5,13 +5,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain.Configuration;
 using Newtonsoft.Json;
 using WorldHexagonMap.Loader.Domain.Enums;
 using System;
 
-namespace WorldHexagonMap.Loader.Implementation.ResultExporters
+namespace WorldHexagonMap.Loader.ResultExporters
 {
     /// <summary>
     /// Base classs for exporting a tile file

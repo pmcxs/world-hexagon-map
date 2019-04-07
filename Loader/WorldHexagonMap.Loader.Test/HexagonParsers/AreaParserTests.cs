@@ -1,12 +1,12 @@
 ﻿using System.Linq;
+using WorldHexagonMap.Core;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Core.Implementation;
 using WorldHexagonMap.Loader.Domain;
 using WorldHexagonMap.Loader.Domain.Enums;
-using WorldHexagonMap.Loader.Implementation.HexagonParsers;
+using WorldHexagonMap.Loader.HexagonParsers;
 using Xunit;
 
-namespace WorldHexagonMap.Loader.Implementation.Test.HexagonParsers
+namespace WorldHexagonMap.Loader.Test.HexagonParsers
 {
     /// <summary>
     /// 

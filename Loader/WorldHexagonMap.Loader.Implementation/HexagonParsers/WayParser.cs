@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain;
-using WorldHexagonMap.Loader.Domain.Delegates;
+using WorldHexagonMap.Loader.ValueHandlers;
 
-namespace WorldHexagonMap.Loader.Implementation.HexagonParsers
+namespace WorldHexagonMap.Loader.HexagonParsers
 {
     public class WayParser : IHexagonParser
     {

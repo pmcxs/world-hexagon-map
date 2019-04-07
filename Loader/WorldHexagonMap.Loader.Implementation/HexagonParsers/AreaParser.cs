@@ -6,8 +6,9 @@ using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain;
 using WorldHexagonMap.Loader.Domain.Delegates;
 using GeoAPI.Geometries;
+using WorldHexagonMap.Loader.ValueHandlers;
 
-namespace WorldHexagonMap.Loader.Implementation.HexagonParsers
+namespace WorldHexagonMap.Loader.HexagonParsers
 {
     public class AreaParser : IHexagonParser
     {

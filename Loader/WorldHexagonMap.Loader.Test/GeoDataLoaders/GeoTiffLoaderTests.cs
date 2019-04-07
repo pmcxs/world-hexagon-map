@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WorldHexagonMap.Loader.Domain;
-using WorldHexagonMap.Loader.Implementation.GeoDataLoaders;
+using WorldHexagonMap.Loader.GeoDataLoaders;
 using Xunit;
 
-namespace WorldHexagonMap.Loader.Implementation.Test.GeoDataLoaders
+namespace WorldHexagonMap.Loader.Test.GeoDataLoaders
 {
     public class GeoTiffLoaderTests
     {

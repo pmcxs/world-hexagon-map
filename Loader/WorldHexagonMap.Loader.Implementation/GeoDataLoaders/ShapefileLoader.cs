@@ -5,7 +5,7 @@ using WorldHexagonMap.Loader.Domain;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 
-namespace WorldHexagonMap.Loader.Implementation.GeoDataLoaders
+namespace WorldHexagonMap.Loader.GeoDataLoaders
 {
     public class ShapefileLoader : DataLoader, IGeoDataLoader
     {

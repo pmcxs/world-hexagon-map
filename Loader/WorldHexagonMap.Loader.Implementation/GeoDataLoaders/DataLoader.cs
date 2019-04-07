@@ -3,7 +3,7 @@ using System.Linq;
 using WorldHexagonMap.Core.Domain;
 using GeoAPI.Geometries;
 
-namespace WorldHexagonMap.Loader.Implementation.GeoDataLoaders
+namespace WorldHexagonMap.Loader.GeoDataLoaders
 {
     public abstract class DataLoader
     {

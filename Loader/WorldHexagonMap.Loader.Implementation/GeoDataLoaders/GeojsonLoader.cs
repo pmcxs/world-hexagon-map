@@ -9,7 +9,7 @@ using GeoAPI.Geometries;
 using NetTopologySuite.Features;
 using NetTopologySuite.IO;
 
-namespace WorldHexagonMap.Loader.Implementation.GeoDataLoaders
+namespace WorldHexagonMap.Loader.GeoDataLoaders
 {
     public class GeojsonLoader : IGeoDataLoader
     {

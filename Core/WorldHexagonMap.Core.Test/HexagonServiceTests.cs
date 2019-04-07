@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WorldHexagonMap.Core.Domain;
 using Xunit;
 
-namespace WorldHexagonMap.Core.Implementation.Test
+namespace WorldHexagonMap.Core.Test
 {
     public class HexagonServiceTests
     {

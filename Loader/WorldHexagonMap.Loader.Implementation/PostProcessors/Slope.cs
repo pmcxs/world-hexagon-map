@@ -2,9 +2,8 @@
 //using System.Composition;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
-using WorldHexagonMap.Loader.Contracts;
 
-namespace WorldHexagonMap.Loader.Implementation.PostProcessors
+namespace WorldHexagonMap.Loader.PostProcessors
 {
 
     /// <summary>

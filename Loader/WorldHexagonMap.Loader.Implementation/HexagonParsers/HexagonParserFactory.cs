@@ -1,10 +1,9 @@
 ﻿using System;
 using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.Loader.Implementation.HexagonParsers
+namespace WorldHexagonMap.Loader.HexagonParsers
 {
     public class HexagonParserFactory : IHexagonParserFactory
     {

@@ -6,7 +6,7 @@ using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Loader.Contracts;
 using WorldHexagonMap.Loader.Domain;
 
-namespace WorldHexagonMap.Loader.Implementation.GeoDataLoaders
+namespace WorldHexagonMap.Loader.GeoDataLoaders
 {
 
     public class GeoTiffLoader : IGeoDataLoader

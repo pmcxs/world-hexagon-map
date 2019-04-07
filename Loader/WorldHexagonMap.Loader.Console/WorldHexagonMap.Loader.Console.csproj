@@ -7,9 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\WorldHexagonMap.Core\WorldHexagonMap.Core.csproj" />
-    <ProjectReference Include="..\..\Core\WorldHexagonMap.Core.Implementation\WorldHexagonMap.Core.Implementation.csproj" />
-    <ProjectReference Include="..\WorldHexagonMap.Loader\WorldHexagonMap.Loader.csproj" />
-    <ProjectReference Include="..\WorldHexagonMap.Loader.Implementation\WorldHexagonMap.Loader.Implementation.csproj" />
+    <ProjectReference Include="..\WorldHexagonMap.Loader.Implementation\WorldHexagonMap.Loader.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
