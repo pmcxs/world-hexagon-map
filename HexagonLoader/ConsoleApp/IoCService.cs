@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using WorldHexagonMap.Core;
 using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.HexagonDataLoader.ConsoleApp;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
@@ -9,10 +8,8 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
 {
     public static class IoCService
     {
-
         public static ServiceProvider Initialize()
         {
-
             //TODO: Setup IoC Container
 
             var serviceProvider = new ServiceCollection()
@@ -21,8 +18,6 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
                 .AddSingleton<IHexagonService, HexagonService>()
                 .AddSingleton<IHexagonProcessorFactory, HexagonProcessorFactory>()
                 .AddSingleton<IPostProcessorFactory, PostProcessorFactory>()
-
-
                 .BuildServiceProvider();
 
             serviceProvider.GetService<IHexagonDataLoaderService>();
@@ -53,9 +48,6 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
             //_container = builder.Build();
 
             return serviceProvider;
-
-
         }
-        
     }
 }

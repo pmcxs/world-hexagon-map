@@ -1,5 +1,4 @@
-﻿
-//using System.Composition;
+﻿//using System.Composition;
 
 using WorldHexagonMap.Core.Domain;
 
@@ -15,33 +14,21 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
                 hexagon.HexagonData.Level = 0;
                 return;
             }
-            
+
             var altitude = hexagon.HexagonData.Altitude;
 
             if (altitude <= 5)
-            {
                 hexagon.HexagonData.Level = 0;
-            }
             else if (altitude < 10)
-            {
-                hexagon.HexagonData.Level  = 1;
-            }
+                hexagon.HexagonData.Level = 1;
             else if (altitude < 20)
-            {
-                hexagon.HexagonData.Level  = 2;
-            }
+                hexagon.HexagonData.Level = 2;
             else if (altitude < 30)
-            {
-                hexagon.HexagonData.Level  = 3;
-            }
+                hexagon.HexagonData.Level = 3;
             else if (altitude < 40)
-            {
                 hexagon.HexagonData.Level = 4;
-            }
             else
-            {
-                hexagon.HexagonData.Level  = 5;
-            }
+                hexagon.HexagonData.Level = 5;
         }
     }
 }

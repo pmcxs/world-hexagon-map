@@ -1,5 +1,4 @@
-﻿
-using WorldHexagonMap.HexagonDataLoader.Domain;
+﻿using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {

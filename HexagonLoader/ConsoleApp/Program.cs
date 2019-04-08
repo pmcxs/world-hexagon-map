@@ -1,26 +1,26 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using Args;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WorldHexagonMap.HexagonDataLoader.ConsoleApp;
 
 namespace WorldHexagonMap.Loader.Service.ConsoleApp
 {
-    class CommandObject
+    internal class CommandObject
     {
         public string Input { get; set; }
         public string Output { get; set; }
         public string Temporary { get; set; }
         public string ExportHandler { get; set; }
-
     }
 
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var command = Args.Configuration.Configure<CommandObject>().CreateAndBind(args);
+            var command = Configuration.Configure<CommandObject>().CreateAndBind(args);
 
             IoCService.Initialize();
 
@@ -32,20 +32,17 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
 
             logger.LogInformation("Start");
 
-            foreach (string zipFile in Directory.EnumerateFiles(command.Input))
+            foreach (var zipFile in Directory.EnumerateFiles(command.Input))
             {
-                if (string.IsNullOrEmpty(zipFile))
-                {
-                    throw new Exception("ZipFile is null or empty");
-                }
+                if (string.IsNullOrEmpty(zipFile)) throw new Exception("ZipFile is null or empty");
 
-                string temporaryFile = Path.Combine(command.Temporary, Path.GetFileName(zipFile));
+                var temporaryFile = Path.Combine(command.Temporary, Path.GetFileName(zipFile));
 
                 File.Move(zipFile, temporaryFile);
 
                 logger.LogInformation("Processing file " + zipFile);
 
-                string targetFolder = Path.Combine(command.Temporary, Path.GetFileNameWithoutExtension(zipFile));
+                var targetFolder = Path.Combine(command.Temporary, Path.GetFileNameWithoutExtension(zipFile));
                 ZipFile.ExtractToDirectory(temporaryFile, targetFolder);
 
                 loader.Process(Path.Combine(targetFolder, "manifest.xml"), command.ExportHandler).Wait();
@@ -55,13 +52,7 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
                 Directory.Delete(targetFolder, true);
             }
 
-            System.Console.ReadLine();
-
-
- 
-
+            Console.ReadLine();
         }
-
     }
-
 }

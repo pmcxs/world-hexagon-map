@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace WorldHexagonMap.Core.Domain
 {
     /// <summary>
-    /// Represents a regular hexagon
+    ///     Represents a regular hexagon
     /// </summary>
     [Serializable]
     public class Hexagon : IEqualityComparer<Hexagon>
@@ -12,6 +12,16 @@ namespace WorldHexagonMap.Core.Domain
         public HexagonLocationUV LocationUV { get; set; }
 
         public HexagonData HexagonData { get; set; }
+
+        public bool Equals(Hexagon x, Hexagon y)
+        {
+            return x != null && x.Equals(y);
+        }
+
+        public int GetHashCode(Hexagon obj)
+        {
+            return obj.GetHashCode();
+        }
 
         public override int GetHashCode()
         {
@@ -64,16 +74,5 @@ namespace WorldHexagonMap.Core.Domain
             //    }
             //}
         }
-
-        public bool Equals(Hexagon x, Hexagon y)
-        {
-            return x != null && x.Equals(y);
-        }
-
-        public int GetHashCode(Hexagon obj)
-        {
-            return obj.GetHashCode();
-        }
-
     }
 }

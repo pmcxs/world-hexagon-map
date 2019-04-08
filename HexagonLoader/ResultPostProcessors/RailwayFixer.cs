@@ -1,11 +1,9 @@
-﻿
-using WorldHexagonMap.Core.Domain.Constants;
+﻿using WorldHexagonMap.Core.Domain.Constants;
 
 namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
-
     /// <summary>
-    /// Fixes inconsistencies on railways
+    ///     Fixes inconsistencies on railways
     /// </summary>
     //[Export("postprocessor_handler_railway_fixer", typeof(IPostProcessor))]
     public class RailwayFixer : PathFixer

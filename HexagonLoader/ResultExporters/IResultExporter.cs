@@ -7,6 +7,5 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
     public interface IResultExporter
     {
         Task<bool> ExportResults(IEnumerable<Hexagon> hexagons);
-
     }
 }

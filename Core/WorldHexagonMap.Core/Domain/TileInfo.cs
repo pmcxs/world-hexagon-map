@@ -6,22 +6,6 @@ namespace WorldHexagonMap.Core.Domain
     [Serializable]
     public class TileInfo
     {
-        private bool Equals(TileInfo other)
-        {
-            return Z == other.Z && X == other.X && Y == other.Y;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = Z;
-                hashCode = (hashCode*397) ^ X;
-                hashCode = (hashCode*397) ^ Y;
-                return hashCode;
-            }
-        }
-
         public TileInfo(int zoomLevel, int tileX, int tileY)
         {
             Z = zoomLevel;
@@ -35,24 +19,39 @@ namespace WorldHexagonMap.Core.Domain
 
         public int Y { get; set; }
 
+        private bool Equals(TileInfo other)
+        {
+            return Z == other.Z && X == other.X && Y == other.Y;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Z;
+                hashCode = (hashCode * 397) ^ X;
+                hashCode = (hashCode * 397) ^ Y;
+                return hashCode;
+            }
+        }
+
         public static string GetQuadkey(int z, int x, int y)
         {
             var quadKey = new StringBuilder();
-            for (int i = z; i > 0; i--)
+            for (var i = z; i > 0; i--)
             {
-                char digit = '0';
-                int mask = 1 << (i - 1);
-                if ((x & mask) != 0)
-                {
-                    digit++;
-                }
+                var digit = '0';
+                var mask = 1 << (i - 1);
+                if ((x & mask) != 0) digit++;
                 if ((y & mask) != 0)
                 {
                     digit++;
                     digit++;
                 }
+
                 quadKey.Append(digit);
             }
+
             return quadKey.ToString();
         }
 
@@ -61,7 +60,7 @@ namespace WorldHexagonMap.Core.Domain
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((TileInfo) obj);
         }
     }

@@ -6,11 +6,8 @@ namespace WorldHexagonMap.Core.Services
 {
     public interface IDataStoreService
     {
-
         Task SetPropertiesAsync(string key, params KeyValuePair<string, string>[] properties);
 
         Task<IList<HexagonData>> GetAllAsync(IList<HexagonLocationUV> hexagonLocations);
-
-
     }
 }

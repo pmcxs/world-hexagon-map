@@ -4,6 +4,5 @@
     {
         Json = 0,
         Binary = 1
-
     }
 }

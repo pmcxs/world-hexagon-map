@@ -7,8 +7,8 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public class HexagonProcessorFactory : IHexagonProcessorFactory
     {
-        private readonly IHexagonService _hexagonService;
         private readonly HexagonDefinition _hexagonDefinition;
+        private readonly IHexagonService _hexagonService;
 
         public HexagonProcessorFactory(IHexagonService hexagonService, HexagonDefinition hexagonDefinition)
         {
@@ -28,7 +28,6 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                     return new PixelProcessor(_hexagonService, _hexagonDefinition);
                 default:
                     throw new NotSupportedException("DataType not supported: " + dataType);
-                   
             }
         }
     }

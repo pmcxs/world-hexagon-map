@@ -9,7 +9,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
     {
         public object GetValue(GeoData geoData)
         {
-            var result = Math.Round( Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(0)]) * 100.0 / 243.0);
+            var result = Math.Round(Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(0)]) * 100.0 / 243.0);
 
             if (result > 100) result = 100;
 

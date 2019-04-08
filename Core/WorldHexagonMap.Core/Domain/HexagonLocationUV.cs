@@ -3,34 +3,34 @@
 namespace WorldHexagonMap.Core.Domain
 {
     /// <summary>
-    /// Represents an hexagon coordinate in U,V terms
+    ///     Represents an hexagon coordinate in U,V terms
     /// </summary>
     /// <remarks>
-    /// The U,V axis is represented with u:0,v:0 on the top-left corner.
-    /// 
-    ///                   *********
-    ///                  *         *
-    ///                 *           *
-    ///                *             *
-    ///       *********    U:1,V:-1   *
-    ///      *         *             *
+    ///     The U,V axis is represented with u:0,v:0 on the top-left corner.
+    ///     *********
+    ///     *         *
+    ///     *           *
+    ///     *             *
+    ///     *********    U:1,V:-1   *
+    ///     *         *             *
     ///     *           *           *
-    ///    *             *         *
-    ///   *    U:0,V:0    *********
-    ///    *             *         *
+    ///     *             *         *
+    ///     *    U:0,V:0    *********
+    ///     *             *         *
     ///     *           *           *
-    ///      *         *             *
-    ///       *********    U:1,V:0    *
-    ///                *             *
-    ///                 *           *
-    ///                  *         *
-    ///                   *********
-    /// 
+    ///     *         *             *
+    ///     *********    U:1,V:0    *
+    ///     *             *
+    ///     *           *
+    ///     *         *
+    ///     *********
     /// </remarks>
     [Serializable]
     public class HexagonLocationUV
     {
-        public HexagonLocationUV() { }
+        public HexagonLocationUV()
+        {
+        }
 
         public HexagonLocationUV(int u, int v)
         {
@@ -39,12 +39,12 @@ namespace WorldHexagonMap.Core.Domain
         }
 
         /// <summary>
-        /// Horizontal component of the hexagon
+        ///     Horizontal component of the hexagon
         /// </summary>
         public int U { get; }
 
         /// <summary>
-        /// Vertical component of the hexagon
+        ///     Vertical component of the hexagon
         /// </summary>
         public int V { get; }
 
@@ -69,7 +69,7 @@ namespace WorldHexagonMap.Core.Domain
 
         public override string ToString()
         {
-            return $"U:{this.U} V:{this.V}";
+            return $"U:{U} V:{V}";
         }
     }
 }

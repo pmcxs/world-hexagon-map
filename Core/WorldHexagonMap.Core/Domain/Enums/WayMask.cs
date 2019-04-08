@@ -3,7 +3,6 @@
 namespace WorldHexagonMap.Core.Domain.Enums
 {
     /// <summary>
-    /// 
     /// </summary>
     [Flags]
     public enum WayMask

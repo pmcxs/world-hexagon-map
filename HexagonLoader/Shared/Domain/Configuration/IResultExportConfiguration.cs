@@ -1,4 +1,5 @@
 ﻿using WorldHexagonMap.Loader.Domain.Enums;
+
 namespace WorldHexagonMap.Loader.Domain.Configuration
 {
     public interface IResultExportConfiguration
@@ -11,6 +12,4 @@ namespace WorldHexagonMap.Loader.Domain.Configuration
 
         bool MergeResults { get; set; }
     }
-
-
 }

@@ -4,9 +4,8 @@ using WorldHexagonMap.Core.Domain.Enums;
 
 namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
-
     /// <summary>
-    /// Returns a mask indicating the various edges on which this hexagon has a downward slope 
+    ///     Returns a mask indicating the various edges on which this hexagon has a downward slope
     /// </summary>
     //[Export("postprocessor_handler_slope", typeof(IPostProcessor))]
     public class Slope : IPostProcessor
@@ -15,14 +14,9 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
         {
             hexagon.HexagonData.Slope = BoundaryMask.None;
 
-            for (int i = 0; i < neighbourHexagons.Length; i++)
-            {
-
+            for (var i = 0; i < neighbourHexagons.Length; i++)
                 if (hexagon.HexagonData.Level > neighbourHexagons[i].HexagonData.Level)
-                {
-                    hexagon.HexagonData.Slope |= (BoundaryMask)((int)Math.Pow(2, i));
-                }
-            }
+                    hexagon.HexagonData.Slope |= (BoundaryMask) (int) Math.Pow(2, i);
         }
     }
 }

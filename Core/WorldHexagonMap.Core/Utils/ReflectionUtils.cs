@@ -9,7 +9,7 @@ namespace WorldHexagonMap.Core.Utils
         public static IEnumerable<Type> GetImplementationsOfT<T>()
         {
             var type = typeof(T);
-            
+
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(t => type.IsAssignableFrom(t) && t.IsClass);

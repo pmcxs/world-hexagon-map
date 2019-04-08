@@ -5,6 +5,15 @@ namespace WorldHexagonMap.Core.Domain
     [Serializable]
     public class PointXY
     {
+        public PointXY(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public double X { get; }
+        public double Y { get; }
+
         private bool Equals(PointXY other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);
@@ -14,18 +23,9 @@ namespace WorldHexagonMap.Core.Domain
         {
             unchecked
             {
-                return (X.GetHashCode()*397) ^ Y.GetHashCode();
+                return (X.GetHashCode() * 397) ^ Y.GetHashCode();
             }
         }
-
-        public PointXY(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public double X { get; }
-        public double Y { get; }
 
         public override string ToString()
         {

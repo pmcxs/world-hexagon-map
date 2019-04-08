@@ -13,12 +13,12 @@ using WorldHexagonMap.Loader.Domain.Enums;
 namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     /// <summary>
-    /// Base class for exporting a tile file
+    ///     Base class for exporting a tile file
     /// </summary>
     public abstract class FileTileExporter : IResultExporter
     {
-        private readonly IHexagonService _hexagonService;
         private readonly HexagonDefinition _hexagonDefinition;
+        private readonly IHexagonService _hexagonService;
 
         protected FileTileExporter(IHexagonService hexagonService, HexagonDefinition hexagonDefinition)
         {
@@ -28,22 +28,23 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 
         public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons)
         {
-            ITileExporterConfiguration configuration = GetExportConfiguration();
+            var configuration = GetExportConfiguration();
 
             //1. Create structure to hold the tiles info
             var targetTiles = new Dictionary<string, VectorTile>();
 
             IEqualityComparer<Hexagon> comparer = new Hexagon();
 
-            foreach (Hexagon hexagon in hexagons)
+            foreach (var hexagon in hexagons)
             {
                 //2. find tiles to which this hexagon belongs to
-                IEnumerable<TileInfo> relatedTiles = _hexagonService.GetTilesContainingHexagon(hexagon, configuration.MinZoom, configuration.MaxZoom, _hexagonDefinition, configuration.TileSize);
+                var relatedTiles = _hexagonService.GetTilesContainingHexagon(hexagon, configuration.MinZoom,
+                    configuration.MaxZoom, _hexagonDefinition, configuration.TileSize);
 
-                foreach (TileInfo tileInfo in relatedTiles)
+                foreach (var tileInfo in relatedTiles)
                 {
                     //3. Check if those tiles already belong to the master collection
-                    string key = tileInfo.Z + "_" + tileInfo.X + "_" + tileInfo.Y;
+                    var key = tileInfo.Z + "_" + tileInfo.X + "_" + tileInfo.Y;
 
                     VectorTile tile;
 
@@ -53,8 +54,12 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
                     }
                     else
                     {
-                        double edgeSize = _hexagonDefinition.EdgeSize / Math.Pow(2, 10 - tileInfo.Z);
-                        tile = new VectorTile { TileInfo = tileInfo, Hexagons = new HashSet<Hexagon>(comparer), HexagonDefinition = new HexagonDefinition(edgeSize) };
+                        var edgeSize = _hexagonDefinition.EdgeSize / Math.Pow(2, 10 - tileInfo.Z);
+                        tile = new VectorTile
+                        {
+                            TileInfo = tileInfo, Hexagons = new HashSet<Hexagon>(comparer),
+                            HexagonDefinition = new HexagonDefinition(edgeSize)
+                        };
 
                         targetTiles.Add(key, tile);
                     }
@@ -68,44 +73,40 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
             return await ExportTilesAsync(targetTiles, configuration.TileFormat);
         }
 
-        protected async Task<bool>  ExportTilesAsync(Dictionary<string, VectorTile> targetTiles, TileFormat tileFormat)
+        protected async Task<bool> ExportTilesAsync(Dictionary<string, VectorTile> targetTiles, TileFormat tileFormat)
         {
-            int total = targetTiles.Count;
-            int count = 0;
+            var total = targetTiles.Count;
+            var count = 0;
 
             await PrepareContainer();
 
             IEqualityComparer<Hexagon> comparer = new Hexagon();
 
-            int previousPercentage = 0;
+            var previousPercentage = 0;
 
-            foreach (VectorTile vectorTile in targetTiles.Values)
+            foreach (var vectorTile in targetTiles.Values)
             {
-                
-                int currentPercentage = count++ * 100 / total;
+                var currentPercentage = count++ * 100 / total;
 
                 if (currentPercentage > previousPercentage)
                 {
                     previousPercentage = currentPercentage;
 
-                    if (previousPercentage % 5 == 0)
-                    {
-                        Console.Write("..{0}%", previousPercentage);
-                    }
+                    if (previousPercentage % 5 == 0) Console.Write("..{0}%", previousPercentage);
                 }
 
 
-                VectorTile existingVectorTile = await FindVectorTileInContainer(vectorTile.TileInfo);
+                var existingVectorTile = await FindVectorTileInContainer(vectorTile.TileInfo);
 
                 if (existingVectorTile != null)
                 {
                     //Merge data on the hexagons that are shared by the current tile and the one currently stored on the container
-                    IEnumerable<Hexagon> intersection = vectorTile.Hexagons.Intersect(existingVectorTile.Hexagons,
+                    var intersection = vectorTile.Hexagons.Intersect(existingVectorTile.Hexagons,
                         comparer);
 
-                    Dictionary<string, Hexagon> existingHexagons =
+                    var existingHexagons =
                         existingVectorTile.Hexagons.ToDictionary(k => k.LocationUV.U + "_" + k.LocationUV.V, k => k);
-                    foreach (Hexagon hexagon in intersection)
+                    foreach (var hexagon in intersection)
                     {
                         var hexagonKey = hexagon.GetHexagonKey();
 
@@ -145,7 +146,6 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
             formatter.Serialize(stream, hexagonTile);
             stream.Seek(0, SeekOrigin.Begin);
             return stream;
-
         }
 
         protected abstract ITileExporterConfiguration GetExportConfiguration();
@@ -155,8 +155,5 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
         protected abstract Task<VectorTile> FindVectorTileInContainer(TileInfo tileInfo);
 
         protected abstract Task<bool> ExportTileToContainer(VectorTile vectorTile);
-
-
     }
-
 }

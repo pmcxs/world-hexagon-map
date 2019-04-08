@@ -12,9 +12,9 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
         public layersLoader[] sources { get; set; }
 
         /// <remarks />
-        [XmlArray("post-processors"), XmlArrayItem("post-processor", IsNullable = false)]
+        [XmlArray("post-processors")]
+        [XmlArrayItem("post-processor", IsNullable = false)]
         public layersPostprocessor[] postprocessors { get; set; }
-
     }
 
     /// <remarks />
@@ -37,11 +37,9 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
         [XmlAttribute]
         public string source { get; set; }
 
-        [XmlAttribute]
-        public bool interpolate { get; set;  }
+        [XmlAttribute] public bool interpolate { get; set; }
 
-        [XmlAttribute]
-        public bool interpolateSpecified { get; set; }
+        [XmlAttribute] public bool interpolateSpecified { get; set; }
 
         /// <remarks />
         [XmlAttribute]
@@ -85,8 +83,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
         [XmlAttribute]
         public string handler { get; set; }
 
-        [XmlAttribute]
-        public string merge { get; set; }
+        [XmlAttribute] public string merge { get; set; }
     }
 
     /// <remarks />

@@ -18,8 +18,8 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 
         public HexagonData this[HexagonLocationUV hexagonLocationUV]
         {
-            get { return _globalResult[hexagonLocationUV]; }
-            set { _globalResult[hexagonLocationUV] = value; }
+            get => _globalResult[hexagonLocationUV];
+            set => _globalResult[hexagonLocationUV] = value;
         }
 
         public Hexagon[] GetHexagons()

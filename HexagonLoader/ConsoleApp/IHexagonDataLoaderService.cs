@@ -5,6 +5,5 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
     public interface IHexagonDataLoaderService
     {
         Task<bool> Process(string path, string exportHandler);
-
     }
 }

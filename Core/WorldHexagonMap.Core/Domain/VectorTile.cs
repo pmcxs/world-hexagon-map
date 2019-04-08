@@ -32,13 +32,9 @@ namespace WorldHexagonMap.Core.Domain
         {
             var hexagons = new Dictionary<string, Hexagon>();
 
-            foreach (Hexagon hexagon in Hexagons)
-            {
-                hexagons[hexagon.LocationUV.U + "_" + hexagon.LocationUV.V] = hexagon;
-            }
+            foreach (var hexagon in Hexagons) hexagons[hexagon.LocationUV.U + "_" + hexagon.LocationUV.V] = hexagon;
 
             return hexagons;
-
         }
     }
 }

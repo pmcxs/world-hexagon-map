@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace WorldHexagonMap.Core.Domain.Constants
+﻿namespace WorldHexagonMap.Core.Domain.Constants
 {
     public static class HexagonDataType
     {

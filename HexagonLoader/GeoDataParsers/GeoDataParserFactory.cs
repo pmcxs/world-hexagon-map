@@ -7,7 +7,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
     {
         public IGeoDataParser GetInstance(string source)
         {
-            string extension = Path.GetExtension(source);
+            var extension = Path.GetExtension(source);
 
             switch (extension)
             {

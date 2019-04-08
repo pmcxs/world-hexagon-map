@@ -4,15 +4,14 @@ using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {
-
     //[Export("value_handler_rgb_colour", typeof(IValueHandler))]
     public class RGBColourHandler : IValueHandler
     {
         public object GetValue(GeoData geoData)
         {
-            int r = Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(0)]);
-            int g = Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(1)]);
-            int b = Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(2)]);
+            var r = Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(0)]);
+            var g = Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(1)]);
+            var b = Convert.ToInt32(geoData.Values[geoData.Values.Keys.ElementAt(2)]);
 
             return GetRGB(r, g, b);
         }
@@ -24,10 +23,8 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 
         private string ComponentToHex(int c)
         {
-            string hex = c.ToString("X");
+            var hex = c.ToString("X");
             return hex.Length == 1 ? "0" + hex : hex;
         }
-
-
     }
 }
