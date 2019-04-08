@@ -1,8 +1,9 @@
 ﻿
 //using System.Composition;
+
 using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Loader.PostProcessors
+namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
     //[Export("postprocessor_handler_level_normalizer", typeof(IPostProcessor))]
     public class LevelNormalizer : IPostProcessor

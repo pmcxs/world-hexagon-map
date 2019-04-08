@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Domain;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {

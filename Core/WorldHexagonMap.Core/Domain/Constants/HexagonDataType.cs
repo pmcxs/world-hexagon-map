@@ -2,7 +2,7 @@
 
 namespace WorldHexagonMap.Core.Domain.Constants
 {
-    public class HexagonDataType
+    public static class HexagonDataType
     {
         public const string Road = "road";
 

@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
-using WorldHexagonMap.Core.Contracts;
-using WorldHexagonMap.Core.Domain;
 using Newtonsoft.Json;
-using System;
+using WorldHexagonMap.Core.Domain;
+using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.Loader.Domain.Configuration;
 using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.Loader.ResultExporters
+namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     /// <summary>
-    /// Base classs for exporting a tile file
+    /// Base class for exporting a tile file
     /// </summary>
     public abstract class FileTileExporter : IResultExporter
     {

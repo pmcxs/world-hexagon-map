@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class ShapefileParser : IGeoDataParser
     {
-
-        protected PointXY[][] ConvertGeometryToPointXY(IGeometry geometry)
+        private PointXY[][] ConvertGeometryToPointXY(IGeometry geometry)
         {
             PointXY[][] points = null;
 

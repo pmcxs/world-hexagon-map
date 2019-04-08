@@ -6,7 +6,7 @@ namespace WorldHexagonMap.Core.Domain
     [Serializable]
     public class TileInfo
     {
-        protected bool Equals(TileInfo other)
+        private bool Equals(TileInfo other)
         {
             return Z == other.Z && X == other.X && Y == other.Y;
         }

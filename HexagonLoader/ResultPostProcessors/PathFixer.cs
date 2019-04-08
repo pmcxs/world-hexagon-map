@@ -1,13 +1,13 @@
 ﻿using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
 
-namespace WorldHexagonMap.Loader.PostProcessors
+namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
 
     /// <summary>
-    /// Fixes incoherences on roads
+    /// Fixes inconsistencies on paths
     /// </summary>
-    public abstract class WayFixer : IPostProcessor
+    public abstract class PathFixer : IPostProcessor
     {
         protected abstract string ProcessedHexagonDataType { get; }
 

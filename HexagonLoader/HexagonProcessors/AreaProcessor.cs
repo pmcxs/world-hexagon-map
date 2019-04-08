@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.HexagonDataLoader.HexagonParsers.ValueHandlers;
+using WorldHexagonMap.Core.Services;
+using WorldHexagonMap.HexagonDataLoader.Domain;
+using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
 using WorldHexagonMap.Loader.Domain;
 
-namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public class AreaProcessor : IHexagonProcessor
     {

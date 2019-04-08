@@ -1,6 +1,6 @@
-﻿using WorldHexagonMap.HexagonDataLoader;
+﻿using WorldHexagonMap.HexagonDataLoader.Domain;
 
-namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers.ValueHandlers
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {
     public interface IValueHandler
     {

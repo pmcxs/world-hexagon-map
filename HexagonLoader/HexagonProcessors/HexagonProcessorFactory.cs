@@ -1,9 +1,9 @@
 ﻿using System;
-using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
+using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public class HexagonProcessorFactory : IHexagonProcessorFactory
     {

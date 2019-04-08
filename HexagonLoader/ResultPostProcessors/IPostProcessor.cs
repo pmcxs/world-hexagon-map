@@ -1,6 +1,6 @@
 ﻿using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Loader.PostProcessors
+namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
     public interface IPostProcessor
     {

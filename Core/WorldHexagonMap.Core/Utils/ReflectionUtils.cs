@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace WorldHexagonMap.Core.Utils
 {
-    public class ReflectionUtils
+    public static class ReflectionUtils
     {
         public static IEnumerable<Type> GetImplementationsOfT<T>()
         {

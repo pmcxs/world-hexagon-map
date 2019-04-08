@@ -1,22 +1,17 @@
 ﻿
 //using System.Composition;
+
 using WorldHexagonMap.Core.Domain.Constants;
 
-namespace WorldHexagonMap.Loader.PostProcessors
+namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
 
     /// <summary>
-    /// Fixes incoherences on roads
+    /// Fixes inconsistencies on roads
     /// </summary>
     //[Export("postprocessor_handler_road_fixer", typeof(IPostProcessor))]
-    public class RoadFixer : WayFixer
+    public class RoadFixer : PathFixer
     {
-        protected override string ProcessedHexagonDataType
-        {
-            get { return HexagonDataType.Road; }
-        }
-
-
-
+        protected override string ProcessedHexagonDataType => HexagonDataType.Road;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WorldHexagonMap.Core.Domain;
+using WorldHexagonMap.Core.Services;
 using Xunit;
 
 namespace WorldHexagonMap.Core.Test

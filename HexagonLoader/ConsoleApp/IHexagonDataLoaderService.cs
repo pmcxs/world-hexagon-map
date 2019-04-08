@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace WorldHexagonMap.Loader.Service
+namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
     public interface IHexagonDataLoaderService
     {

@@ -41,12 +41,12 @@ namespace WorldHexagonMap.Core.Domain
         /// <summary>
         /// Horizontal component of the hexagon
         /// </summary>
-        public int U { get; set; }
+        public int U { get; }
 
         /// <summary>
         /// Vertical component of the hexagon
         /// </summary>
-        public int V { get; set; }
+        public int V { get; }
 
 
         public override bool Equals(object obj)
@@ -57,7 +57,7 @@ namespace WorldHexagonMap.Core.Domain
             return Equals((HexagonLocationUV) obj);
         }
 
-        protected bool Equals(HexagonLocationUV other)
+        private bool Equals(HexagonLocationUV other)
         {
             return U == other.U && V == other.V;
         }
@@ -69,7 +69,7 @@ namespace WorldHexagonMap.Core.Domain
 
         public override string ToString()
         {
-            return string.Format("U:{0} V:{1}", this.U, this.V);
+            return $"U:{this.U} V:{this.V}";
         }
     }
 }

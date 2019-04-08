@@ -1,4 +1,6 @@
-﻿namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers.ValueHandlers
+﻿using WorldHexagonMap.HexagonDataLoader.Domain;
+
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {
     //[Export("value_handler_country_iso", typeof(IValueHandler))]
     public class CountryISOHandler : IValueHandler

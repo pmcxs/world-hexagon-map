@@ -1,27 +1,26 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Utils;
-using WorldHexagonMap.HexagonDataLoader;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
-using WorldHexagonMap.HexagonDataLoader.HexagonParsers;
-using WorldHexagonMap.HexagonDataLoader.HexagonParsers.ValueHandlers;
+using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
+using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
+using WorldHexagonMap.HexagonDataLoader.ResultExporters;
+using WorldHexagonMap.HexagonDataLoader.ResultPostProcessors;
 using WorldHexagonMap.Loader.Domain;
 using WorldHexagonMap.Loader.Domain.Configuration;
 using WorldHexagonMap.Loader.Domain.Enums;
-using WorldHexagonMap.Loader.HexagonRepositories;
-using WorldHexagonMap.Loader.PostProcessors;
-using WorldHexagonMap.Loader.ResultExporters;
 using WorldHexagonMap.Loader.Service;
 
-namespace WorldHexagonMap.Loader
+namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
-    public class HexagonDataLoaderService : IHexagonDataLoaderService
+    public sealed class HexagonDataLoaderService : IHexagonDataLoaderService
     {
         private readonly ILoaderConfiguration _configuration;
         private readonly IHexagonProcessorFactory _hexagonParserFactory;
@@ -146,7 +145,7 @@ namespace WorldHexagonMap.Loader
             return hexagon;
         }
 
-        protected virtual IEnumerable<GeoData> LoadGeoData(layersLoader sourceData, string basePath)
+        private IEnumerable<GeoData> LoadGeoData(layersLoader sourceData, string basePath)
         {
             IGeoDataParser geoLoader = _geoDataParserFactory.GetInstance(sourceData.source);
 
@@ -167,7 +166,7 @@ namespace WorldHexagonMap.Loader
             }
         }
 
-        protected virtual IEnumerable<HexagonLoaderResult> ConvertGeoDataToHexagons(IEnumerable<GeoData> geoData, layersLoaderTarget[] targets)
+        private IEnumerable<HexagonLoaderResult> ConvertGeoDataToHexagons(IEnumerable<GeoData> geoData, layersLoaderTarget[] targets)
         {
             foreach (GeoData geo in geoData)
             {
@@ -189,9 +188,8 @@ namespace WorldHexagonMap.Loader
             }
         }
 
-        
 
-        protected virtual async Task<bool> ExportResultsAsync(Hexagon[] hexagons, string exportHandler)
+        private async Task<bool> ExportResultsAsync(Hexagon[] hexagons, string exportHandler)
         {
 
             _logger.LogInformation(DateTime.Now + ": Exporting Results with " + exportHandler);
@@ -200,7 +198,7 @@ namespace WorldHexagonMap.Loader
 
         }
 
-        protected virtual void MergeResults(IEnumerable<HexagonLoaderResult> results, IHexagonRepository globalResult)
+        private void MergeResults(IEnumerable<HexagonLoaderResult> results, IHexagonRepository globalResult)
         {
             foreach (HexagonLoaderResult result in results)
             {

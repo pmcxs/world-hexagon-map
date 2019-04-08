@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace WorldHexagonMap.Core.Utils
 {
-    public class XmlUtils
+    public static class XmlUtils
     {
 
         public static T DeserializeFromFile<T>(string path)

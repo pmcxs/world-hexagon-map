@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Core.Contracts
+namespace WorldHexagonMap.Core.Services
 {
     public interface IDataStoreService
     {

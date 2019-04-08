@@ -17,7 +17,7 @@ namespace WorldHexagonMap.Core.Domain
                 if (this[HexagonDataType.Colour] == null) return null;
                 return this[HexagonDataType.Colour].ToString();
             }
-            set { this[HexagonDataType.Colour] = value; }
+            set => this[HexagonDataType.Colour] = value;
         }
 
 

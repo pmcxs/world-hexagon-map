@@ -1,7 +1,7 @@
 ﻿
 using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Loader.HexagonRepositories
+namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
     public interface IHexagonRepository
     {

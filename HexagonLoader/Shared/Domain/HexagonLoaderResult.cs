@@ -1,7 +1,7 @@
 ﻿using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.Loader.Domain
+namespace WorldHexagonMap.HexagonDataLoader.Domain
 {
     public class HexagonLoaderResult
     {

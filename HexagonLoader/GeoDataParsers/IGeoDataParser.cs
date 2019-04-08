@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 using WorldHexagonMap.Loader;
 using WorldHexagonMap.Loader.Domain;
 

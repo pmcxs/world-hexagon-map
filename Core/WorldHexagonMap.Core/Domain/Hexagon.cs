@@ -18,7 +18,7 @@ namespace WorldHexagonMap.Core.Domain
             return LocationUV.GetHashCode();
         }
 
-        protected bool Equals(Hexagon other)
+        private bool Equals(Hexagon other)
         {
             return LocationUV.Equals(other.LocationUV);
         }
@@ -67,7 +67,7 @@ namespace WorldHexagonMap.Core.Domain
 
         public bool Equals(Hexagon x, Hexagon y)
         {
-            return x.Equals(y);
+            return x != null && x.Equals(y);
         }
 
         public int GetHashCode(Hexagon obj)

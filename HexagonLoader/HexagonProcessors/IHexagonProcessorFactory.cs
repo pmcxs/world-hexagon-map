@@ -1,6 +1,6 @@
 ﻿using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public interface IHexagonProcessorFactory
     {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Core
+namespace WorldHexagonMap.Core.Services
 {
     /// <summary>
     /// Contains all logic related with hexagon calculations
@@ -26,19 +25,19 @@ namespace WorldHexagonMap.Core
             var u = Convert.ToInt32(Math.Round(point.X / hexagonDefinition.NarrowWidth));
             var v = Convert.ToInt32(Math.Round(point.Y / hexagonDefinition.Height - u * 0.5));
 
-            if (IsPointXYInsideHexagonLocationUV(point, new HexagonLocationUV { U = u, V = v }, hexagonDefinition)) 
+            if (IsPointXYInsideHexagonLocationUV(point, new HexagonLocationUV (u, v), hexagonDefinition)) 
             {
-                return new HexagonLocationUV { U= u, V= v };
+                return new HexagonLocationUV (u, v );
             }
             
             var surroundingHexagons = new List<HexagonLocationUV>
             {
-                new HexagonLocationUV { U = u, V = v - 1},
-                new HexagonLocationUV { U = u, V = v + 1},
-                new HexagonLocationUV { U = u - 1, V = v },
-                new HexagonLocationUV { U = u + 1, V = v },
-                new HexagonLocationUV { U = u - 1, V = v + 1},
-                new HexagonLocationUV { U = u + 1, V = v - 1},
+                new HexagonLocationUV (u, v - 1),
+                new HexagonLocationUV (u, v + 1),
+                new HexagonLocationUV (u - 1, v ),
+                new HexagonLocationUV (u + 1, v ),
+                new HexagonLocationUV (u - 1, v + 1),
+                new HexagonLocationUV (u + 1, v - 1),
             };
 
             for(var i=0; i< surroundingHexagons.Count; i++) 

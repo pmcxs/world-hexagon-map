@@ -1,8 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using WorldHexagonMap.Core;
-using WorldHexagonMap.Core.Contracts;
-using WorldHexagonMap.HexagonDataLoader.HexagonParsers;
-using WorldHexagonMap.Loader.PostProcessors;
+using WorldHexagonMap.Core.Services;
+using WorldHexagonMap.HexagonDataLoader.ConsoleApp;
+using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
+using WorldHexagonMap.HexagonDataLoader.ResultPostProcessors;
 
 namespace WorldHexagonMap.Loader.Service.ConsoleApp
 {

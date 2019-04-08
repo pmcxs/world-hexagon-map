@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using WorldHexagonMap.HexagonDataLoader.HexagonParsers.ValueHandlers;
+using WorldHexagonMap.HexagonDataLoader.Domain;
+using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
 using WorldHexagonMap.Loader.Domain;
 
-namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public interface IHexagonProcessor
     {

@@ -1,4 +1,4 @@
-﻿namespace WorldHexagonMap.Loader.PostProcessors
+﻿namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
     public interface IPostProcessorFactory
     {

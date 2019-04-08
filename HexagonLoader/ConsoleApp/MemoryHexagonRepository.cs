@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Loader.HexagonRepositories
+namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
     public class MemoryHexagonRepository : IHexagonRepository
     {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.HexagonDataLoader;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 { 
@@ -21,10 +21,10 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 
             var featureCollection = reader.Read<FeatureCollection>(jsonData);
 
-            return featureCollection.Features.Select<IFeature, GeoData>(ConvertFeatureToGeoData);
+            return featureCollection.Features.Select(ConvertFeatureToGeoData);
         }
 
-        protected GeoData ConvertFeatureToGeoData(IFeature feature)
+        private GeoData ConvertFeatureToGeoData(IFeature feature)
         {
             var geoData = new GeoData { Values = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) };
 

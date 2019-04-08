@@ -1,4 +1,4 @@
-﻿namespace WorldHexagonMap.Loader.Domain
+﻿namespace WorldHexagonMap.HexagonDataLoader.Domain
 {
     public class ProcessResult
     {

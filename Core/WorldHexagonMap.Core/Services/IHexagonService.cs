@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using WorldHexagonMap.Core.Domain;
 
-namespace WorldHexagonMap.Core.Contracts
+namespace WorldHexagonMap.Core.Services
 {
     public interface IHexagonService
     {

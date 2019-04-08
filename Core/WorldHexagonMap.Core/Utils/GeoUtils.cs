@@ -3,7 +3,7 @@ using WorldHexagonMap.Core.Domain;
 
 namespace WorldHexagonMap.Core.Utils
 {
-    public class GeoUtils
+    public static class GeoUtils
     {
         public static PointXY CoordinateToPixel(double lon, double lat)
         {

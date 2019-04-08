@@ -1,21 +1,15 @@
 ﻿
 using WorldHexagonMap.Core.Domain.Constants;
 
-namespace WorldHexagonMap.Loader.PostProcessors
+namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
 {
 
     /// <summary>
-    /// Fixes incoherences on roads
+    /// Fixes inconsistencies on railways
     /// </summary>
     //[Export("postprocessor_handler_railway_fixer", typeof(IPostProcessor))]
-    public class RailwayFixer : WayFixer
+    public class RailwayFixer : PathFixer
     {
-        protected override string ProcessedHexagonDataType
-        {
-            get { return HexagonDataType.Railway; }
-        }
-
-
-
+        protected override string ProcessedHexagonDataType => HexagonDataType.Railway;
     }
 }

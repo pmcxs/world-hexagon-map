@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using WorldHexagonMap.HexagonDataLoader;
-using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 using Xunit;
 
-namespace WorldHexagonMap.Loader.Test.GeoDataLoaders
+namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test
 {
     public class GeoTiffLoaderTests
     {
-        private List<GeoData> _geoData;
+        private readonly List<GeoData> _geoData;
 
         public GeoTiffLoaderTests()
         {

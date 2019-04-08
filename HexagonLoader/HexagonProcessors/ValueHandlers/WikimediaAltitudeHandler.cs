@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using WorldHexagonMap.HexagonDataLoader.Domain;
 
-namespace WorldHexagonMap.HexagonDataLoader.HexagonParsers.ValueHandlers
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {
     //[Export("value_handler_wikimedia_altitude", typeof(IValueHandler))]
     public class WikimediaAltitudeHandler : IValueHandler

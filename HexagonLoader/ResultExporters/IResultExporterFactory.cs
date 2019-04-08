@@ -1,4 +1,4 @@
-﻿namespace WorldHexagonMap.Loader.ResultExporters
+﻿namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     public interface IResultExporterFactory
     {

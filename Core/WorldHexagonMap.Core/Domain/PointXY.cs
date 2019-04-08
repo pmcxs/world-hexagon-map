@@ -5,7 +5,7 @@ namespace WorldHexagonMap.Core.Domain
     [Serializable]
     public class PointXY
     {
-        protected bool Equals(PointXY other)
+        private bool Equals(PointXY other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);
         }
@@ -24,8 +24,8 @@ namespace WorldHexagonMap.Core.Domain
             Y = y;
         }
 
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double X { get; }
+        public double Y { get; }
 
         public override string ToString()
         {

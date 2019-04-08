@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldHexagonMap.Core.Contracts;
 using WorldHexagonMap.Core.Domain;
+using WorldHexagonMap.Core.Services;
 
-namespace WorldHexagonMap.Loader.ResultExporters
+namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     public class KeyStoreExporter : IResultExporter
     {
