@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HexagonProcessors\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.csproj" />
     <ProjectReference Include="..\..\Core\WorldHexagonMap.Core\WorldHexagonMap.Core.csproj" />
-    <ProjectReference Include="..\WorldHexagonMap.HexagonDataLoader.HexagonProcessors\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.csproj" />
-    <ProjectReference Include="..\WorldHexagonMap.Loader.Implementation\WorldHexagonMap.HexagonDataLoader.csproj" />
   </ItemGroup>
-
 </Project>

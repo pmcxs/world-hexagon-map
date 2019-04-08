@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Domain;
+using WorldHexagonMap.HexagonDataLoader;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 { 

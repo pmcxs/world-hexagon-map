@@ -17,13 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WorldHexagonMap.HexagonDataLoader.GeoDataParsers\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.csproj" />
-    <ProjectReference Include="..\WorldHexagonMap.HexagonDataLoader.HexagonProcessors\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.csproj" />
-    <ProjectReference Include="..\WorldHexagonMap.Loader.Implementation\WorldHexagonMap.HexagonDataLoader.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="Resources\sample.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeoDataParsers\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.csproj" />
   </ItemGroup>
 </Project>
