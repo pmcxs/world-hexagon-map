@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using WorldHexagonMap.Core;
 using WorldHexagonMap.Core.Contracts;
-using WorldHexagonMap.Loader.HexagonParsers;
+using WorldHexagonMap.HexagonDataLoader.HexagonParsers;
 using WorldHexagonMap.Loader.PostProcessors;
 
 namespace WorldHexagonMap.Loader.Service.ConsoleApp
@@ -18,7 +18,7 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
                 .AddLogging()
                 .AddSingleton<IHexagonDataLoaderService, HexagonDataLoaderService>()
                 .AddSingleton<IHexagonService, HexagonService>()
-                .AddSingleton<IHexagonParserFactory, HexagonParserFactory>()
+                .AddSingleton<IHexagonProcessorFactory, HexagonProcessorFactory>()
                 .AddSingleton<IPostProcessorFactory, PostProcessorFactory>()
 
 

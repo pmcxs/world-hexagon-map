@@ -5,19 +5,29 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C641D350-A3D7-4D58-AAB5-4A5F7E1987BD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Loader", "Loader", "{6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HexagonDataLoader", "HexagonDataLoader", "{6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.Loader", "Loader\WorldHexagonMap.Loader.Implementation\WorldHexagonMap.Loader.csproj", "{F068D55A-965C-486D-BD72-4FB2F42DB126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader", "Loader\WorldHexagonMap.Loader.Implementation\WorldHexagonMap.HexagonDataLoader.csproj", "{F068D55A-965C-486D-BD72-4FB2F42DB126}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.Loader.Test", "Loader\WorldHexagonMap.Loader.Test\WorldHexagonMap.Loader.Test.csproj", "{9F19DC55-C4A1-46FD-9B75-52BDBF728871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test", "Loader\WorldHexagonMap.Loader.Test\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test.csproj", "{9F19DC55-C4A1-46FD-9B75-52BDBF728871}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.Core.Test", "Core\WorldHexagonMap.Core.Test\WorldHexagonMap.Core.Test.csproj", "{3A12BB3D-6E79-43F1-A525-96B9AAC8087C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.Core", "Core\WorldHexagonMap.Core\WorldHexagonMap.Core.csproj", "{10592B2F-23C1-4F92-A709-2174604D7D50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.Loader.Services", "Loader\WorldHexagonMap.Loader.Service\WorldHexagonMap.Loader.Services.csproj", "{C7CBB93A-673F-415C-9D58-2E03504DC24C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ConsoleApp", "Loader\WorldHexagonMap.Loader.Service.ConsoleApp\WorldHexagonMap.HexagonDataLoader.ConsoleApp.csproj", "{8A925F37-742F-4D12-B4F6-04F6E394D953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.Loader.Services.ConsoleApp", "Loader\WorldHexagonMap.Loader.Service.ConsoleApp\WorldHexagonMap.Loader.Services.ConsoleApp.csproj", "{8A925F37-742F-4D12-B4F6-04F6E394D953}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapTileGenerator", "MapTileGenerator", "{E7E3554F-E27B-4DC6-A304-07C41AECC314}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.GeoDataParsers", "Loader\WorldHexagonMap.HexagonDataLoader.GeoDataParsers\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.csproj", "{FC969F52-5801-46A6-88F8-3ED9D0336F44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors", "Loader\WorldHexagonMap.HexagonDataLoader.HexagonProcessors\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.csproj", "{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ResultPostProcessors", "loader\WorldHexagonMap.HexagonDataLoader.ResultPostProcessors\WorldHexagonMap.HexagonDataLoader.ResultPostProcessors.csproj", "{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ResultExporters", "Loader\WorldHexagonMap.HexagonDataLoader.ResultExporters\WorldHexagonMap.HexagonDataLoader.ResultExporters.csproj", "{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test", "Loader\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test.csproj", "{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +51,30 @@ Global
 		{10592B2F-23C1-4F92-A709-2174604D7D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10592B2F-23C1-4F92-A709-2174604D7D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10592B2F-23C1-4F92-A709-2174604D7D50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7CBB93A-673F-415C-9D58-2E03504DC24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7CBB93A-673F-415C-9D58-2E03504DC24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7CBB93A-673F-415C-9D58-2E03504DC24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7CBB93A-673F-415C-9D58-2E03504DC24C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A925F37-742F-4D12-B4F6-04F6E394D953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A925F37-742F-4D12-B4F6-04F6E394D953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A925F37-742F-4D12-B4F6-04F6E394D953}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A925F37-742F-4D12-B4F6-04F6E394D953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC969F52-5801-46A6-88F8-3ED9D0336F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC969F52-5801-46A6-88F8-3ED9D0336F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC969F52-5801-46A6-88F8-3ED9D0336F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC969F52-5801-46A6-88F8-3ED9D0336F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,8 +84,12 @@ Global
 		{9F19DC55-C4A1-46FD-9B75-52BDBF728871} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
 		{3A12BB3D-6E79-43F1-A525-96B9AAC8087C} = {C641D350-A3D7-4D58-AAB5-4A5F7E1987BD}
 		{10592B2F-23C1-4F92-A709-2174604D7D50} = {C641D350-A3D7-4D58-AAB5-4A5F7E1987BD}
-		{C7CBB93A-673F-415C-9D58-2E03504DC24C} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
 		{8A925F37-742F-4D12-B4F6-04F6E394D953} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
+		{FC969F52-5801-46A6-88F8-3ED9D0336F44} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
+		{E3187CE8-6F70-4857-AEDC-A9CC9643D36D} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
+		{0B52B2B4-84A6-4782-AB99-6982ADDDAC41} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
+		{16EF9809-317F-4A5F-83AA-7CC856BEFA1E} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
+		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80A2AB6D-CAF4-4B3C-8B32-382D263D8BC0}

@@ -3,7 +3,7 @@ using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Loader.Domain.Enums;
 
 
-namespace WorldHexagonMap.Loader.Domain
+namespace WorldHexagonMap.HexagonDataLoader
 {
     public class GeoData
     {
