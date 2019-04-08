@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Utils;
-using WorldHexagonMap.HexagonDataLoader.Domain;
+using WorldHexagonMap.HexagonDataLoader.Console.Configuration;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
 using WorldHexagonMap.HexagonDataLoader.ResultExporters;
 using WorldHexagonMap.HexagonDataLoader.ResultPostProcessors;
-using WorldHexagonMap.Loader.Domain.Configuration;
-using WorldHexagonMap.Loader.Domain.Enums;
+
 
 namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
@@ -54,7 +53,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             return await Process(layers, basePath, exportHandler);
         }
 
-        public async Task<bool> Process(layers layers, string basePath, string exportHandler)
+        private async Task<bool> Process(layers layers, string basePath, string exportHandler)
         {
             var clock = new Stopwatch();
 
@@ -158,7 +157,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             }
         }
 
-        private IEnumerable<HexagonLoaderResult> ConvertGeoDataToHexagons(IEnumerable<GeoData> geoData,
+        private IEnumerable<HexagonProcessorResult> ConvertGeoDataToHexagons(IEnumerable<GeoData> geoData,
             layersLoaderTarget[] targets)
         {
             foreach (var geo in geoData)
@@ -182,20 +181,18 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
         }
 
 
-        private async Task<bool> ExportResultsAsync(Hexagon[] hexagons, string exportHandler)
+        private async Task<bool> ExportResultsAsync(IEnumerable<Hexagon> hexagons, string exportHandler)
         {
             _logger.LogInformation(DateTime.Now + ": Exporting Results with " + exportHandler);
             var exporter = _resultExporterFactory.GetInstance(exportHandler);
             return await exporter.ExportResults(hexagons);
         }
 
-        private void MergeResults(IEnumerable<HexagonLoaderResult> results, IHexagonRepository globalResult)
+        private static void MergeResults(IEnumerable<HexagonProcessorResult> results, IHexagonRepository globalResult)
         {
             foreach (var result in results)
             {
-                HexagonData data;
-
-                if (!globalResult.TryGetValue(result.HexagonLocationUV, out data))
+                if (!globalResult.TryGetValue(result.HexagonLocationUV, out var data))
                 {
                     data = new HexagonData();
                     globalResult[result.HexagonLocationUV] = data;
@@ -211,13 +208,19 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                         break;
                     case MergeStrategy.Max:
 
-                        if (result.Value is int)
-                            data[result.Target] = Math.Max((int) (data[result.Target] ?? 0), (int) result.Value);
-                        else if (result.Value is double)
-                            data[result.Target] =
-                                Math.Max((double) (data[result.Target] ?? 0.0), (double) result.Value);
-                        else
-                            throw new FormatException("value " + result.Value + " can't be merged");
+                        switch (result.Value)
+                        {
+                            case int valInt:
+                                data[result.Target] = Math.Max((int) (data[result.Target] ?? 0), valInt);
+                                break;
+                            case double valDouble:
+                                data[result.Target] =
+                                    Math.Max((double) (data[result.Target] ?? 0.0), valDouble);
+                                break;
+                            default:
+                                throw new FormatException("value " + result.Value + " can't be merged");
+                        }
+
                         break;
                     case MergeStrategy.Min:
                         data[result.Target] = Math.Min((int) (data[result.Target] ?? 0), (int) result.Value);
@@ -237,7 +240,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                 case "pixel":
                     return DataType.Pixel;
                 default:
-                    throw new NotSupportedException("Data Type " + dataType + " not supposrted");
+                    throw new NotSupportedException("Data Type " + dataType + " not supported");
             }
         }
 

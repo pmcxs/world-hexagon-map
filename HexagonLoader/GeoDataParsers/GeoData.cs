@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.HexagonDataLoader.Domain
+namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class GeoData
     {
@@ -19,7 +18,7 @@ namespace WorldHexagonMap.HexagonDataLoader.Domain
 
     public class GeoDataCollection : ICollection<GeoData>
     {
-        public ICollection<GeoData> GeoData { get; set; }
+        private ICollection<GeoData> GeoData { get; set; }
 
         public string SourceProjection { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
-using WorldHexagonMap.Loader.Domain.Enums;
+using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {

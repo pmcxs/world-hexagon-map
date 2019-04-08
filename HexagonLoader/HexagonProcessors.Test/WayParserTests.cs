@@ -2,8 +2,7 @@
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
 using WorldHexagonMap.Core.Services;
-using WorldHexagonMap.HexagonDataLoader.Domain;
-using WorldHexagonMap.Loader.Domain.Enums;
+using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using Xunit;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test

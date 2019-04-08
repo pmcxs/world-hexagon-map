@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BitMiracle.LibTiff.Classic;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {

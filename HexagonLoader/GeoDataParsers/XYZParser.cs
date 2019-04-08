@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {

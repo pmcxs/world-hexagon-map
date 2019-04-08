@@ -1,4 +1,4 @@
-﻿namespace WorldHexagonMap.Loader.Domain.Enums
+﻿namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     public enum TileFormat
     {

@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
-using WorldHexagonMap.Loader.Domain.Configuration;
-using WorldHexagonMap.Loader.Domain.Enums;
 
 namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {

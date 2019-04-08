@@ -1,4 +1,4 @@
-﻿using WorldHexagonMap.Loader.Domain.Enums;
+﻿using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {

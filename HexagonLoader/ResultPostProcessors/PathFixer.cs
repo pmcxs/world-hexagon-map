@@ -1,4 +1,5 @@
-﻿using WorldHexagonMap.Core.Domain;
+﻿using System.Collections.Generic;
+using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
 
 namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
@@ -26,14 +27,14 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
             ConnectRoads(hexagon, neighbourHexagons);
         }
 
-        private WayMask GetNeighbourHexagonValue(Hexagon[] neighbourHexagons, int index)
+        private WayMask GetNeighbourHexagonValue(IReadOnlyList<Hexagon> neighbourHexagons, int index)
         {
             return neighbourHexagons[index].HexagonData[ProcessedHexagonDataType] == null
                 ? 0
                 : (WayMask) neighbourHexagons[index].HexagonData[ProcessedHexagonDataType];
         }
 
-        private void ConnectRoads(Hexagon hexagon, Hexagon[] neighbourHexagons)
+        private void ConnectRoads(Hexagon hexagon, IReadOnlyList<Hexagon> neighbourHexagons)
         {
             if ((WayMask) hexagon.HexagonData[ProcessedHexagonDataType] == (WayMask.TopLeft | WayMask.BottomRight) &&
                 GetNeighbourHexagonValue(neighbourHexagons, 4) == WayMask.BottomLeft)
@@ -71,7 +72,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultPostProcessors
             }
         }
 
-        private void RemoveDoubleTriangles(Hexagon hexagon, Hexagon[] neighbourHexagons)
+        private void RemoveDoubleTriangles(Hexagon hexagon, IReadOnlyList<Hexagon> neighbourHexagons)
         {
             if ((WayMask) hexagon.HexagonData[ProcessedHexagonDataType] ==
                 (WayMask.TopLeft | WayMask.Top | WayMask.Bottom | WayMask.BottomLeft) &&

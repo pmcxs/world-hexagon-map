@@ -1,9 +1,8 @@
 ﻿using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Loader.Domain.Enums;
 
-namespace WorldHexagonMap.HexagonDataLoader.Domain
+namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
-    public class HexagonLoaderResult
+    public class HexagonProcessorResult
     {
         public object Value;
         public HexagonLocationUV HexagonLocationUV { get; set; }

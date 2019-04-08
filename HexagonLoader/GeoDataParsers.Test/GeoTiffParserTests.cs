@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using WorldHexagonMap.HexagonDataLoader.Domain;
 using Xunit;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using WorldHexagonMap.HexagonDataLoader.Domain;
+using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {

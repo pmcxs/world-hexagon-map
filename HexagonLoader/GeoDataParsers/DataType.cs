@@ -1,4 +1,4 @@
-﻿namespace WorldHexagonMap.Loader.Domain.Enums
+﻿namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public enum DataType
     {

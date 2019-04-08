@@ -1,4 +1,4 @@
-﻿namespace WorldHexagonMap.Loader.Domain.Configuration
+﻿namespace WorldHexagonMap.HexagonDataLoader.Console.Configuration
 {
     public interface ILoaderConfiguration
     {

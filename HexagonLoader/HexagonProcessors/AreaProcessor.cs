@@ -2,7 +2,7 @@
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
-using WorldHexagonMap.HexagonDataLoader.Domain;
+using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
@@ -18,7 +18,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
             _hexagonDefinition = hexagonDefinition;
         }
 
-        public IEnumerable<HexagonLoaderResult> ProcessGeoData(GeoData geoData, IValueHandler valueHandler = null)
+        public IEnumerable<HexagonProcessorResult> ProcessGeoData(GeoData geoData, IValueHandler valueHandler = null)
         {
             foreach (var coordinates in geoData.Points)
             {
@@ -35,7 +35,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                         _hexagonService.GetCenterPointXYOfHexagonLocationUV(hexagonLocation, _hexagonDefinition);
 
                     if (IsPointInsidePolygon(new Coordinate(center.X, center.Y), coordinates))
-                        yield return new HexagonLoaderResult
+                        yield return new HexagonProcessorResult
                         {
                             HexagonLocationUV = hexagonLocation,
                             Value = valueHandler == null ? 1 : valueHandler.GetValue(geoData)

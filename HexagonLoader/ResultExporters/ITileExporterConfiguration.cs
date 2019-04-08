@@ -1,6 +1,4 @@
-﻿using WorldHexagonMap.Loader.Domain.Enums;
-
-namespace WorldHexagonMap.Loader.Domain.Configuration
+﻿namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     public interface ITileExporterConfiguration
     {

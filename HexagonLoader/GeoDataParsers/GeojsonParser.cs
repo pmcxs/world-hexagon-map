@@ -6,7 +6,6 @@ using GeoAPI.Geometries;
 using NetTopologySuite.Features;
 using NetTopologySuite.IO;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.HexagonDataLoader.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
