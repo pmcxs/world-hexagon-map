@@ -13,7 +13,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
         /// <param name="sourceData"></param>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public IEnumerable<GeoData> ParseGeodataFromSource(layersLoader sourceData, string filePath)
+        public IEnumerable<GeoData> ParseGeodataFromSource(LayersConfiguration sourceData, string filePath)
         {
             Tiff.SetErrorHandler(new NoWarningsTiffErrorHandler());
             using (var tiff = Tiff.Open(filePath, "r"))
@@ -59,7 +59,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                             Points = new PointXY[1][]
                         };
 
-                        if (sourceData.interpolate)
+                        if (sourceData.Interpolate)
                             geodata.Points[0] = new[]
                             {
                                 new PointXY(longitude - pixelSizeX, latitude - pixelSizeY), //TOP-LEFT

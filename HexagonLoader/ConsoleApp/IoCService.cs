@@ -1,10 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
+using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
-using WorldHexagonMap.HexagonDataLoader.ConsoleApp;
+using WorldHexagonMap.HexagonDataLoader.ConsoleApp.Configuration;
+using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
+using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
+using WorldHexagonMap.HexagonDataLoader.ResultExporters;
 using WorldHexagonMap.HexagonDataLoader.ResultPostProcessors;
 
-namespace WorldHexagonMap.Loader.Service.ConsoleApp
+namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
     public static class IoCService
     {
@@ -14,38 +18,18 @@ namespace WorldHexagonMap.Loader.Service.ConsoleApp
 
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
+                .AddSingleton(new LoaderConfiguration { Parallelism = 4})
+                .AddSingleton(new HexagonDefinition(10))
                 .AddSingleton<IHexagonDataLoaderService, HexagonDataLoaderService>()
                 .AddSingleton<IHexagonService, HexagonService>()
+                .AddSingleton<IGeoDataParserFactory, GeoDataParserFactory>()
                 .AddSingleton<IHexagonProcessorFactory, HexagonProcessorFactory>()
+                .AddSingleton<IValueHandlerFactory, ValueHandlerFactory>()
                 .AddSingleton<IPostProcessorFactory, PostProcessorFactory>()
+                .AddSingleton<IResultExporterFactory, ResultExporterFactory>()
                 .BuildServiceProvider();
 
             serviceProvider.GetService<IHexagonDataLoaderService>();
-
-            //builder.Register(c => new HexagonDefinition(10))
-            //    .As<HexagonDefinition>()
-            //    .Exported(e => e.As<HexagonDefinition>());
-
-            //builder
-            //    .RegisterType<LoaderService>()
-            //    .As<ILoaderService>()
-            //    .Exported(e => e.As<ILoaderService>());
-
-            //builder
-            //    .RegisterType<HexagonService>()
-            //    .As<IHexagonService>()
-            //    .Exported(e => e.As<IHexagonService>());
-
-            //builder.RegisterType<HexagonParserFactory>()
-            //    .As<IHexagonParserFactory>()
-            //    .Exported(e => e.As<IHexagonParserFactory>());
-
-            //builder.RegisterType<GeoDataLoaderFactory>()
-            //    .As<IGeoDataLoaderFactory>()
-            //    .Exported(e => e.As<IGeoDataLoaderFactory>());
-
-
-            //_container = builder.Build();
 
             return serviceProvider;
         }

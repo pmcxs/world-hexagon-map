@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\sample.tif">
+    <None Update="Resources\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

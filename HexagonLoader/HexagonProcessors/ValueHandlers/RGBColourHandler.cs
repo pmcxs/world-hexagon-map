@@ -4,7 +4,6 @@ using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {
-    //[Export("value_handler_rgb_colour", typeof(IValueHandler))]
     public class RGBColourHandler : IValueHandler
     {
         public object GetValue(GeoData geoData)

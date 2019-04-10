@@ -14,27 +14,33 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
         private readonly HexagonDefinition _hexagonDefinition = new HexagonDefinition(100);
 
         /// <summary>
-        ///     Test Data:
-        ///     +++++++++
-        ///     + U:1,V:-1+
-        ///     +           +
-        ///     +             +
-        ///     +++++++++        *      +++++++++
-        ///     + U:0,V:0 +             + U:2,V:-1+
+        /// Validates that a disjoint multipolygon is able
+        /// to pickup isolated hexagons (as long as their
+        /// centers are contained)
+        ///
+        /// Test Data:
+        ///                   +++++++++
+        ///                  + U:1,V:-1+
+        ///                 +           +
+        ///                +             +
+        ///       +++++++++        *      +++++++++
+        ///      + U:0,V:0 +             + U:2,V:-1+
         ///     +           +           +           +
-        ///     +    *-----+  +         +  *-----+    +
-        ///     +     |  1  |   +++++++++   |  2  |     +
-        ///     +    |     |  + U:1,V:0 +  |     |    +
+        ///    +    *-----+  +         +  *-----+    +
+        ///   +     |  1  |   +++++++++   |  2  |     +
+        ///    +    |     |  + U:1,V:0 +  |     |    +
         ///     +   +-----+ +           + +-----+   +
-        ///     +         +             +         +
-        ///     +++++++++               +++++++++
-        ///     + U:0,V:1 +             + U:2,v:0 +
+        ///      +         +             +         +
+        ///       +++++++++               +++++++++
+        ///      + U:0,V:1 +             + U:2,v:0 +
         ///     +           +           +           +
-        ///     +             +         +             +
-        ///     +               +++++++++               +
-        ///     Edge size: 100
-        ///     Polygon #1: (-10,20; 50,20; 50,-10; -10,-10; -10,20)
-        ///     Polygon #2: (250,20; 310,20; 310,-10; -250,-10; 250,20)
+        ///    +             +         +             +
+        ///   +               +++++++++               +
+        /// Edge size: 100
+        /// 
+        /// Polygon #1: (-10,20; 50,20; 50,-10; -10,-10; -10,20)
+        /// Polygon #2: (250,20; 310,20; 310,-10; -250,-10; 250,20)
+        /// 
         /// </summary>
         [Fact]
         public void ParseMultipolygon_Success()
@@ -79,30 +85,31 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
         }
 
         /// <summary>
-        ///     Validate that parsing a polygon that goes
-        ///     through various hexagons but only considers
-        ///     the ones that have its center intersected.
-        ///     In this case (0,0) and (2,-1)
-        ///     Test Data:
-        ///     +++++++++
-        ///     + U:1,V:-1+
-        ///     +           +
-        ///     +             +
-        ///     +++++++++        *      +++++++++
-        ///     + U:0,V:0 +             + U:2,V:-1+
+        /// Validate that parsing a polygon that goes
+        /// through various hexagons but only considers
+        /// the ones that have its center intersected.
+        /// In this case (0,0) and (2,-1)
+        /// 
+        /// Test Data:
+        ///                   +++++++++
+        ///                  + U:1,V:-1+
+        ///                 +           +
+        ///                +             +
+        ///       +++++++++        *      +++++++++
+        ///      + U:0,V:0 +             + U:2,V:-1+
         ///     +           +           +           +
-        ///     +    *--------+---------+--------+    +
-        ///     +     | X       +++++++++        X|     +
-        ///     +    |        + U:1,V:0 +        |    +
+        ///    +    *--------+---------+--------+    +
+        ///   +     | X       +++++++++        X|     +
+        ///    +    |        + U:1,V:0 +        |    +
         ///     +   +-------+-----------+-------+   +
-        ///     +         +             +         +
-        ///     +++++++++               +++++++++
-        ///     + U:0,V:1 +             + U:2,v:0 +
+        ///      +         +             +         +
+        ///       +++++++++               +++++++++
+        ///      + U:0,V:1 +             + U:2,v:0 +
         ///     +           +           +           +
-        ///     +             +         +             +
-        ///     +               +++++++++               +
-        ///     Edge size: 100
-        ///     Polygon: (-10,20; 310,20; 310,-10; -10;-10; -10,20)
+        ///    +             +         +             +
+        ///   +               +++++++++               +
+        /// Edge size: 100
+        /// Polygon: (-10,20; 310,20; 310,-10; -10;-10; -10,20)
         /// </summary>
         [Fact]
         public void ParsePolygon_Success()

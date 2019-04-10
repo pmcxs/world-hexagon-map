@@ -36,7 +36,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                     //Square mode
                 {
                     var hexagons =
-                        _hexagonService.GetHexagonsInsideBoudingBox(coordinates[0], coordinates[1], _hexagonDefinition);
+                        _hexagonService.GetHexagonsInsideBoundingBox(coordinates[0], coordinates[1], _hexagonDefinition);
 
                     foreach (var hexagonLocation in hexagons)
                         yield return new HexagonProcessorResult

@@ -7,10 +7,13 @@ namespace WorldHexagonMap.Core.Utils
     {
         public static T DeserializeFromFile<T>(string path)
         {
-            var s = new XmlSerializer(typeof(T));
-
             var reader = new StreamReader(path);
-
+            return DeserializeFromStream<T>(reader);
+        }
+        
+        public static T DeserializeFromStream<T>(StreamReader reader)
+        {
+            var s = new XmlSerializer(typeof(T));
             return (T) s.Deserialize(reader);
         }
     }

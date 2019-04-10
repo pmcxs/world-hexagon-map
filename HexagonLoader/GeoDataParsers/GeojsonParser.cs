@@ -11,7 +11,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class GeojsonParser : IGeoDataParser
     {
-        public IEnumerable<GeoData> ParseGeodataFromSource(layersLoader sourceData, string filePath)
+        public IEnumerable<GeoData> ParseGeodataFromSource(LayersConfiguration sourceData, string filePath)
         {
             var jsonData = File.ReadAllText(filePath);
 

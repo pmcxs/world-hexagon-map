@@ -1,0 +1,22 @@
+<layers>
+    <sources>
+        <!-- Land -->
+        <loader type="area" source="countries.shp">
+            <targets>
+                <target field="land" merge="max"/>
+                <target field="country" handler="value_handler_country_iso" merge="replace"/>
+                <target field="region" handler="value_handler_region" merge="replace"/>
+            </targets>
+        </loader>
+
+        <!-- Roads -->
+        <loader type="way" source="roads.shp">
+            <filters>
+                <filter field="featurecla" value="Road"/>
+            </filters>
+            <targets>
+                <target field="road" merge="mask"/>
+            </targets>
+        </loader>
+    </sources>
+</layers>

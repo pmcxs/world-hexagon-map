@@ -26,7 +26,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                 var bottomRightCoordinate = new PointXY(coordinates.Max(c => c.X), coordinates.Max(c => c.Y));
 
                 var polygonHexagons =
-                    _hexagonService.GetHexagonsInsideBoudingBox(topLeftCoordinate, bottomRightCoordinate,
+                    _hexagonService.GetHexagonsInsideBoundingBox(topLeftCoordinate, bottomRightCoordinate,
                         _hexagonDefinition);
 
                 foreach (var hexagonLocation in polygonHexagons)

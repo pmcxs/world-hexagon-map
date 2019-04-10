@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Utils;
-using WorldHexagonMap.HexagonDataLoader.Console.Configuration;
+using WorldHexagonMap.HexagonDataLoader.ConsoleApp.Configuration;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
@@ -19,7 +19,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
     public sealed class HexagonDataLoaderService : IHexagonDataLoaderService
     {
-        private readonly ILoaderConfiguration _configuration;
+        private readonly LoaderConfiguration _configuration;
         private readonly IGeoDataParserFactory _geoDataParserFactory;
         private readonly IHexagonProcessorFactory _hexagonParserFactory;
 
@@ -28,7 +28,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
         private readonly IResultExporterFactory _resultExporterFactory;
         private readonly IValueHandlerFactory _valueHandlerFactory;
 
-        public HexagonDataLoaderService(ILoaderConfiguration configuration, ILoggerFactory loggerFactory,
+        public HexagonDataLoaderService(LoaderConfiguration configuration, ILoggerFactory loggerFactory,
             IHexagonProcessorFactory hexagonParserFactory, IGeoDataParserFactory geoDataParserFactory,
             IPostProcessorFactory postProcessorFactory, IValueHandlerFactory valueHandlerFactory,
             IResultExporterFactory resultExportFactory)
@@ -46,14 +46,14 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 
         public async Task<bool> Process(string path, string exportHandler)
         {
-            var layers = XmlUtils.DeserializeFromFile<layers>(path);
+            var layers = XmlUtils.DeserializeFromFile<Layers>(path);
 
             var basePath = Directory.GetParent(path).ToString();
 
             return await Process(layers, basePath, exportHandler);
         }
 
-        private async Task<bool> Process(layers layers, string basePath, string exportHandler)
+        private async Task<bool> Process(Layers layers, string basePath, string exportHandler)
         {
             var clock = new Stopwatch();
 
@@ -70,13 +70,13 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             _logger.LogInformation(DateTime.Now + ": Loading Data");
 
             //2. Iterate the various source data
-            Parallel.ForEach(layers.sources, options, sourceData =>
+            Parallel.ForEach(layers.Sources, options, sourceData =>
             {
                 //3. Load GeoData
                 var geoData = LoadGeoData(sourceData, basePath);
 
                 //4. Convert the GeoData to hexagons
-                var result = ConvertGeoDataToHexagons(geoData, sourceData.targets);
+                var result = ConvertGeoDataToHexagons(geoData, sourceData.Targets);
 
                 //5. Merge Results into global result-set
                 MergeResults(result, globalResult);
@@ -86,8 +86,8 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 
             _logger.LogInformation(DateTime.Now + ": Post-Processing");
             //6. Post-Process results
-            if (layers.postprocessors != null && layers.postprocessors.Any())
-                results = PostProcessResults(globalResult, layers.postprocessors);
+            if (layers.PostProcessors != null && layers.PostProcessors.Any())
+                results = PostProcessResults(globalResult, layers.PostProcessors);
             else
                 results = globalResult.GetHexagons();
 
@@ -100,15 +100,15 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
         }
 
         private IEnumerable<Hexagon> PostProcessResults(IHexagonRepository results,
-            IEnumerable<layersPostprocessor> postProcessors)
+            IEnumerable<LayersPostprocessor> postProcessors)
         {
             var hexagons = results.GetHexagons();
 
             foreach (var postProcessor in postProcessors)
             {
-                var handler = _postProcessorFactory.GetInstance(postProcessor.handler);
+                var handler = _postProcessorFactory.GetInstance(postProcessor.Handler);
 
-                for (var i = 0; i < postProcessor.iterations; i++)
+                for (var i = 0; i < postProcessor.Iterations; i++)
                     foreach (var hexagon in hexagons)
                     {
                         var u = hexagon.LocationUV.U;
@@ -131,22 +131,22 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             return hexagons;
         }
 
-        private Hexagon AddNeighbour(int u, int v, IHexagonRepository results)
+        private static Hexagon AddNeighbour(int u, int v, IHexagonRepository results)
         {
             var hexagon = new Hexagon {LocationUV = new HexagonLocationUV(u, v)};
             hexagon.HexagonData = results.GetHexagonData(hexagon.LocationUV);
             return hexagon;
         }
 
-        private IEnumerable<GeoData> LoadGeoData(layersLoader sourceData, string basePath)
+        private IEnumerable<GeoData> LoadGeoData(LayersConfiguration sourceData, string basePath)
         {
-            var geoLoader = _geoDataParserFactory.GetInstance(sourceData.source);
+            var geoLoader = _geoDataParserFactory.GetInstance(sourceData.Source);
 
-            var geoData = geoLoader.ParseGeodataFromSource(sourceData, Path.Combine(basePath, sourceData.source));
+            var geoData = geoLoader.ParseGeodataFromSource(sourceData, Path.Combine(basePath, sourceData.Source));
 
             foreach (var geo in geoData)
             {
-                geo.DataType = GetDataType(sourceData.type);
+                geo.DataType = GetDataType(sourceData.Type);
 
                 for (var index = 0; index < geo.Points.Length; index++)
                     geo.Points[index] = geo
@@ -158,7 +158,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
         }
 
         private IEnumerable<HexagonProcessorResult> ConvertGeoDataToHexagons(IEnumerable<GeoData> geoData,
-            layersLoaderTarget[] targets)
+            LayersLoaderTarget[] targets)
         {
             foreach (var geo in geoData)
             {
@@ -166,14 +166,14 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 
                 foreach (var target in targets)
                 {
-                    var handler = target.handler != null
-                        ? _valueHandlerFactory.GetInstance(target.handler)
+                    var handler = target.Handler != null
+                        ? _valueHandlerFactory.GetInstance(target.Handler)
                         : null;
 
                     foreach (var result in parser.ProcessGeoData(geo, handler))
                     {
-                        result.Target = target.field;
-                        result.MergeStrategy = GetMergeStrategy(target.merge);
+                        result.Target = target.Field;
+                        result.MergeStrategy = GetMergeStrategy(target.Merge);
                         yield return result;
                     }
                 }
@@ -225,11 +225,13 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                     case MergeStrategy.Min:
                         data[result.Target] = Math.Min((int) (data[result.Target] ?? 0), (int) result.Value);
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        private DataType GetDataType(string dataType)
+        private static DataType GetDataType(string dataType)
         {
             switch (dataType.ToLower())
             {
@@ -244,7 +246,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             }
         }
 
-        private MergeStrategy GetMergeStrategy(string mergeStrategy)
+        private static MergeStrategy GetMergeStrategy(string mergeStrategy)
         {
             switch (mergeStrategy.ToLower())
             {

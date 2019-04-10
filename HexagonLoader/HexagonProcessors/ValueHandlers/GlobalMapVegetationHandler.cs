@@ -4,7 +4,6 @@ using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers
 {
-    //[Export("value_handler_globalmap_vegetation", typeof(IValueHandler))]
     public class GlobalMapVegetationHandler : IValueHandler
     {
         public object GetValue(GeoData geoData)

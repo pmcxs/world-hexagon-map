@@ -14,7 +14,7 @@ namespace WorldHexagonMap.Core.Services
         /// </summary>
         /// <remarks>
         ///     This algorithm follows a two step approach. The first one is very first and although doesn't have false positives
-        ///     might have false negatices.
+        ///     might have false negatives.
         ///     Thus, on a second iteration (if the first didn't return true) it checks the vicinity hexagons and uses a more
         ///     deterministic polygon intersection mechanism.
         /// </remarks>
@@ -28,7 +28,9 @@ namespace WorldHexagonMap.Core.Services
             var v = Convert.ToInt32(Math.Round(point.Y / hexagonDefinition.Height - u * 0.5));
 
             if (IsPointXYInsideHexagonLocationUV(point, new HexagonLocationUV(u, v), hexagonDefinition))
+            {
                 return new HexagonLocationUV(u, v);
+            }
 
             var surroundingHexagons = new List<HexagonLocationUV>
             {
@@ -40,9 +42,13 @@ namespace WorldHexagonMap.Core.Services
                 new HexagonLocationUV(u + 1, v - 1)
             };
 
-            for (var i = 0; i < surroundingHexagons.Count; i++)
-                if (IsPointXYInsideHexagonLocationUV(point, surroundingHexagons[i], hexagonDefinition))
-                    return surroundingHexagons[i];
+            foreach (var hex in surroundingHexagons)
+            {
+                if (IsPointXYInsideHexagonLocationUV(point, hex, hexagonDefinition))
+                {
+                    return hex;
+                }
+            }
 
             return null;
         }
@@ -90,12 +96,10 @@ namespace WorldHexagonMap.Core.Services
             var du = destination.U - source.U;
             var dv = destination.V - source.V;
 
-            if (du * dv > 0) return Math.Abs(du + dv);
-
-            return Math.Max(Math.Abs(du), Math.Abs(dv));
+            return du * dv > 0 ? Math.Abs(du + dv) : Math.Max(Math.Abs(du), Math.Abs(dv));
         }
 
-        public IList<HexagonLocationUV> GetHexagonsInsideBoudingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
+        public IList<HexagonLocationUV> GetHexagonsInsideBoundingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
             HexagonDefinition hexagonDefinition)
         {
             var topLeftUV = GetHexagonLocationUVForPointXY(topLeftCorner, hexagonDefinition);
@@ -191,7 +195,7 @@ namespace WorldHexagonMap.Core.Services
         }
 
 
-        private TileInfo GetTileOfPoint(PointXY pointXY, int zoomLevel, int tileSize)
+        private static TileInfo GetTileOfPoint(PointXY pointXY, int zoomLevel, int tileSize)
         {
             var pixelFactor = Math.Pow(2, zoomLevel - 10);
 

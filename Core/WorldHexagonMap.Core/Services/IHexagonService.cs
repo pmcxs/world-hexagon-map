@@ -14,7 +14,7 @@ namespace WorldHexagonMap.Core.Services
         int GetDistanceBetweenHexagonLocationUVs(HexagonLocationUV source, HexagonLocationUV destination,
             HexagonDefinition hexagonDefinition);
 
-        IList<HexagonLocationUV> GetHexagonsInsideBoudingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
+        IList<HexagonLocationUV> GetHexagonsInsideBoundingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
             HexagonDefinition hexagonDefinition);
 
         IEnumerable<TileInfo> GetTilesContainingHexagon(Hexagon hexagon, int minZoomLevel, int maxZoomLevel,

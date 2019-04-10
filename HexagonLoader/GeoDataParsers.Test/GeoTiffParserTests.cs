@@ -14,7 +14,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test
             var loader = new GeoTiffParser();
 
             _geoData = loader.ParseGeodataFromSource(
-                    new layersLoader {interpolate = true},
+                    new LayersConfiguration {Interpolate = true},
                     Path.Combine("Resources", "sample.tif"))
                 .ToList();
         }

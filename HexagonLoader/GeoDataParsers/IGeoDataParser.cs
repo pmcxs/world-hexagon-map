@@ -4,6 +4,6 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public interface IGeoDataParser
     {
-        IEnumerable<GeoData> ParseGeodataFromSource(layersLoader sourceData, string filePath);
+        IEnumerable<GeoData> ParseGeodataFromSource(LayersConfiguration sourceData, string filePath);
     }
 }

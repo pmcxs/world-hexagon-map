@@ -5,91 +5,91 @@
     <!-- Land -->
     <loader type="area" source="countries.shp">
       <targets>
-        <target field="land" merge="max"></target>
-        <target field="country" handler="value_handler_country_iso" merge="replace"></target>
-        <target field="region" handler="value_handler_region" merge="replace"></target>
+        <target field="land" merge="max"/>
+        <target field="country" handler="value_handler_country_iso" merge="replace"/>
+        <target field="region" handler="value_handler_region" merge="replace"/>
       </targets>
     </loader>
 
     <!-- Roads -->
     <loader type="way" source="roads.shp">
       <filters>
-        <filter field="featurecla" value="Road"></filter>
+        <filter field="featurecla" value="Road"/>
       </filters>
       <targets>
-        <target field="road" merge="mask"></target>
+        <target field="road" merge="mask"/>
       </targets>
     </loader>
 
     <!-- Railways -->
     <loader type="way" source="railways.shp">
       <filters>
-        <filter field="featurecla" value="Railroad"></filter>
+        <filter field="featurecla" value="Railroad"/>
       </filters>
       <targets>
-        <target field="railway" merge="mask"></target>
+        <target field="railway" merge="mask"/>
       </targets>
     </loader>
     
     <!-- Desert -->
     <loader type="area" source="deserts.shp">
       <targets>
-        <target field="desert" merge="max"></target>
+        <target field="desert" merge="max"/>
       </targets>
     </loader>
 
     <!-- Urban -->
     <loader type="area" source="urban.shp">
       <targets>
-        <target field="urban" merge="max"></target>
+        <target field="urban" merge="max"/>
       </targets>
     </loader>
 
     <!-- Mountain -->
     <loader type="area" source="mountains.shp">
       <targets>
-        <target field="mountain" merge="max"></target>
+        <target field="mountain" merge="max"/>
       </targets>
     </loader>
 
     <!-- Water -->
     <loader type="way" source="rivers.shp">
       <filters>
-        <filter field="featurecla" value="River"></filter>
+        <filter field="featurecla" value="River"/>
       </filters>
       <targets>
-        <target field="water" merge="mask"></target>
+        <target field="water" merge="mask"/>
       </targets>
     </loader>
 
     <loader type="area" source="lakes.shp">
       <targets>
-        <target field="water" merge="max"></target>
+        <target field="water" merge="max"/>
       </targets>
     </loader>
 
     <!-- Altitude -->
     <loader type="pixel" source="altitude.tif" interpolate="true">
       <targets>
-        <target field="altitude" handler="value_handler_wikimedia_altitude" merge="max"></target>
+        <target field="altitude" handler="value_handler_wikimedia_altitude" merge="max"/>
       </targets>
     </loader>-->
 
     <!-- Forest -->
     <loader type="pixel" source="forests.tif" interpolate="true">
       <targets>
-        <target field="forest" handler="value_handler_globalmap_vegetation" merge="max"></target>
+        <target field="forest" handler="value_handler_globalmap_vegetation" merge="max"/>
       </targets>
     </loader>
     
   </sources>
 
   <post-processors>
-    <post-processor handler="postprocessor_handler_level_normalizer" iterations="1"></post-processor>
-    <post-processor handler="postprocessor_handler_slope" iterations="1"></post-processor>
-    <post-processor handler="postprocessor_handler_area_edges" iterations="1"></post-processor>
-    <post-processor handler="postprocessor_handler_road_fixer" iterations="3"></post-processor>
-    <post-processor handler="postprocessor_handler_railway_fixer" iterations="3"></post-processor>
+    <post-processor handler="postprocessor_handler_level_normalizer" iterations="1"/>
+    <post-processor handler="postprocessor_handler_slope" iterations="1"/>
+    <post-processor handler="postprocessor_handler_area_edges" iterations="1"/>
+    <post-processor handler="postprocessor_handler_road_fixer" iterations="3"/>
+    <post-processor handler="postprocessor_handler_railway_fixer" iterations="3"/>
   </post-processors>
 
 </layers>

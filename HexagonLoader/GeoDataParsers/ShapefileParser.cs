@@ -10,7 +10,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class ShapefileParser : IGeoDataParser
     {
-        public IEnumerable<GeoData> ParseGeodataFromSource(layersLoader sourceData, string filePath)
+        public IEnumerable<GeoData> ParseGeodataFromSource(LayersConfiguration sourceData, string filePath)
         {
             var reader = new ShapefileDataReader(filePath, new GeometryFactory());
 
@@ -18,16 +18,15 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
             {
                 var geoData = ConvertReaderToGeoData(reader);
 
-                if (sourceData.filters == null || sourceData.filters.Length == 0)
+                if (sourceData.Filters == null || sourceData.Filters.Length == 0)
                     yield return geoData;
                 else
-                    foreach (var filter in sourceData.filters)
+                    foreach (var filter in sourceData.Filters)
                     {
-                        if (!geoData.Values.ContainsKey(filter.field))
-                            throw new Exception(string.Format("Field {0} was not found on shapefile {1}", filter.field,
-                                filePath));
+                        if (!geoData.Values.ContainsKey(filter.Field))
+                            throw new Exception($"Field {filter.Field} was not found on shapefile {filePath}");
 
-                        if (Convert.ToString(geoData.Values[filter.field]) == filter.value) yield return geoData;
+                        if (Convert.ToString(geoData.Values[filter.Field]) == filter.Value) yield return geoData;
                     }
             }
         }

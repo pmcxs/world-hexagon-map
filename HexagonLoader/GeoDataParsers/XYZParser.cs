@@ -9,7 +9,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class XYZParser : IGeoDataParser
     {
-        public IEnumerable<GeoData> ParseGeodataFromSource(layersLoader sourceData, string filePath)
+        public IEnumerable<GeoData> ParseGeodataFromSource(LayersConfiguration sourceData, string filePath)
         {
             foreach (var line in File.ReadLines(filePath))
             {
@@ -26,13 +26,13 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                     Points = new PointXY[1][]
                 };
 
-                if (Math.Abs(sourceData.xoffset) > (decimal) 0.0 && Math.Abs(sourceData.yoffset) > (decimal) 0.0)
+                if (Math.Abs(sourceData.XOffset) > (decimal) 0.0 && Math.Abs(sourceData.YOffset) > (decimal) 0.0)
                     geodata.Points[0] = new[]
                     {
-                        new PointXY(longitude - (double) sourceData.xoffset,
-                            latitude - (double) sourceData.yoffset), //TOP-LEFT
-                        new PointXY(longitude + (double) sourceData.xoffset,
-                            latitude + (double) sourceData.yoffset) //BOTTOM-RIGHT
+                        new PointXY(longitude - (double) sourceData.XOffset,
+                            latitude - (double) sourceData.YOffset), //TOP-LEFT
+                        new PointXY(longitude + (double) sourceData.XOffset,
+                            latitude + (double) sourceData.YOffset) //BOTTOM-RIGHT
                     };
                 else
                     geodata.Points[0] = new[] {new PointXY(longitude, latitude)};
