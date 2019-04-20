@@ -12,6 +12,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\WorldHexagonMap.Core\WorldHexagonMap.Core.csproj" />
-    <ProjectReference Include="..\Shared\WorldHexagonMap.HexagonDataLoader.csproj" />
   </ItemGroup>
 </Project>

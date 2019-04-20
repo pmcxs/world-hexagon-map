@@ -337,3 +337,5 @@ ASALocalRun/
 
 # Geodata (very large files)
 Data/
+
+*.sqlite

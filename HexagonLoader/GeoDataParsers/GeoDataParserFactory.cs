@@ -5,6 +5,13 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class GeoDataParserFactory : IGeoDataParserFactory
     {
+
+
+        public IGeoDataParser GetInstance<T>() where T : IGeoDataParser
+        {
+            return Activator.CreateInstance<T>();
+        }
+        
         public IGeoDataParser GetInstance(string source)
         {
             var extension = Path.GetExtension(source);

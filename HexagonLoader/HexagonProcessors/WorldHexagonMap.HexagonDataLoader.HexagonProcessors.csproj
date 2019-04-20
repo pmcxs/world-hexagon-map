@@ -6,6 +6,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeoDataParsers\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.csproj" />
-    <ProjectReference Include="..\Shared\WorldHexagonMap.HexagonDataLoader.csproj" />
   </ItemGroup>
 </Project>

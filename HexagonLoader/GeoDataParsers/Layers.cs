@@ -69,6 +69,14 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
         /// <remarks />
         [XmlAttribute("field")]
         public string Field { get; set; }
+        
+        /// <remarks />
+        [XmlAttribute("source")]
+        public string SourceField { get; set; }
+        
+        /// <remarks />
+        [XmlAttribute("destination")]
+        public string Destination { get; set; }
 
         /// <remarks />
         [XmlAttribute("handler")]

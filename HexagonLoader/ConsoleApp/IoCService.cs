@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.HexagonDataLoader.ConsoleApp.Configuration;
@@ -17,7 +18,8 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             //TODO: Setup IoC Container
 
             var serviceProvider = new ServiceCollection()
-                .AddLogging()
+                .AddLogging(configure =>
+                    configure.AddConsole())
                 .AddSingleton(new LoaderConfiguration { Parallelism = 4})
                 .AddSingleton(new HexagonDefinition(10))
                 .AddSingleton<IHexagonDataLoaderService, HexagonDataLoaderService>()

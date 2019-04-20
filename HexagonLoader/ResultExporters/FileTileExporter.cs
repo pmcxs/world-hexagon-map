@@ -71,7 +71,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
             return await ExportTilesAsync(targetTiles, configuration.TileFormat);
         }
 
-        protected async Task<bool> ExportTilesAsync(Dictionary<string, VectorTile> targetTiles, TileFormat tileFormat)
+        private async Task<bool> ExportTilesAsync(Dictionary<string, VectorTile> targetTiles, TileFormat tileFormat)
         {
             var total = targetTiles.Count;
             var count = 0;
