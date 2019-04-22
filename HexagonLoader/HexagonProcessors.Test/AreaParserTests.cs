@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using Xunit;
 
@@ -10,7 +9,6 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
     /// </summary>
     public class AreaParserTests
     {
-        private readonly HexagonService _service = new HexagonService();
         private readonly HexagonDefinition _hexagonDefinition = new HexagonDefinition(100);
 
         /// <summary>
@@ -49,7 +47,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             var geoData = new GeoData
             {
                 Points = new PointXY[2][],
-                DataType = DataType.Way
+                DataType = DataType.Path
             };
 
             geoData.Points[0] = new[]
@@ -70,10 +68,10 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
                 new PointXY(250.0, 20.0)
             };
 
-            var loader = new AreaProcessor(_service, _hexagonDefinition);
+            var loader = new AreaProcessor();
 
             //Act
-            var result = loader.ProcessGeoData(geoData).ToArray();
+            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
 
             Assert.Equal(2, result.Length);
 
@@ -118,7 +116,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             var geoData = new GeoData
             {
                 Points = new PointXY[1][],
-                DataType = DataType.Way
+                DataType = DataType.Path
             };
 
             geoData.Points[0] = new[]
@@ -130,10 +128,10 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
                 new PointXY(-10.0, 20.0)
             };
 
-            var loader = new AreaProcessor(_service, _hexagonDefinition);
+            var loader = new AreaProcessor();
 
             //Act
-            var result = loader.ProcessGeoData(geoData).ToArray();
+            var result = loader.ProcessGeoData(geoData, _hexagonDefinition).ToArray();
 
             Assert.Equal(2, result.Length);
 

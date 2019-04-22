@@ -8,23 +8,14 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public class PixelProcessor : IHexagonProcessor
     {
-        private readonly HexagonDefinition _hexagonDefinition;
-        private readonly IHexagonService _hexagonService;
-
-        public PixelProcessor(IHexagonService hexagonService, HexagonDefinition hexagonDefinition)
-        {
-            _hexagonService = hexagonService;
-            _hexagonDefinition = hexagonDefinition;
-        }
-
-        public IEnumerable<HexagonProcessorResult> ProcessGeoData(GeoData geoData, IValueHandler valueHandler = null)
+        public IEnumerable<HexagonProcessorResult> ProcessGeoData(GeoData geoData, HexagonDefinition hexagonDefinition, IValueHandler valueHandler = null)
         {
             foreach (var coordinates in geoData.Points)
                 if (coordinates.Length == 1)
                     //Single point mode 
                 {
                     var hexagonLocation =
-                        _hexagonService.GetHexagonLocationUVForPointXY(coordinates[0], _hexagonDefinition);
+                        HexagonService.GetHexagonLocationUVForPointXY(coordinates[0], hexagonDefinition);
 
                     yield return new HexagonProcessorResult
                     {
@@ -36,7 +27,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                     //Square mode
                 {
                     var hexagons =
-                        _hexagonService.GetHexagonsInsideBoundingBox(coordinates[0], coordinates[1], _hexagonDefinition);
+                        HexagonService.GetHexagonsInsideBoundingBox(coordinates[0], coordinates[1], hexagonDefinition);
 
                     foreach (var hexagonLocation in hexagons)
                         yield return new HexagonProcessorResult

@@ -2,7 +2,7 @@
 {
     public enum DataType
     {
-        Way,
+        Path,
         Area,
         Point,
         Pixel

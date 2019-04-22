@@ -6,8 +6,8 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
     public class GeoData
     {
-        //public IGeometry Geometry { get; set; }
-
+        public string Name { get; set; }
+        
         public IDictionary<string, object> Values { get; set; }
 
         public PointXY[][] Points { get; set; }

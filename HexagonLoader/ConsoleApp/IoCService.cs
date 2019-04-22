@@ -22,8 +22,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                     configure.AddConsole())
                 .AddSingleton(new LoaderConfiguration { Parallelism = 4})
                 .AddSingleton(new HexagonDefinition(10))
-                .AddSingleton<IHexagonDataLoaderService, HexagonDataLoaderService>()
-                .AddSingleton<IHexagonService, HexagonService>()
+                .AddSingleton<IHexagonDataLoaderPipelineService, HexagonDataLoaderPipelineService>()
                 .AddSingleton<IGeoDataParserFactory, GeoDataParserFactory>()
                 .AddSingleton<IHexagonProcessorFactory, HexagonProcessorFactory>()
                 .AddSingleton<IValueHandlerFactory, ValueHandlerFactory>()
@@ -31,7 +30,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                 .AddSingleton<IResultExporterFactory, ResultExporterFactory>()
                 .BuildServiceProvider();
 
-            serviceProvider.GetService<IHexagonDataLoaderService>();
+            serviceProvider.GetService<IHexagonDataLoaderPipelineService>();
 
             return serviceProvider;
         }

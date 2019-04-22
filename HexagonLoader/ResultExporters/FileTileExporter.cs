@@ -15,16 +15,8 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
     /// </summary>
     public abstract class FileTileExporter : IResultExporter
     {
-        private readonly HexagonDefinition _hexagonDefinition;
-        private readonly IHexagonService _hexagonService;
 
-        protected FileTileExporter(IHexagonService hexagonService, HexagonDefinition hexagonDefinition)
-        {
-            _hexagonService = hexagonService;
-            _hexagonDefinition = hexagonDefinition;
-        }
-
-        public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons)
+        public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons, HexagonDefinition hexagonDefinition,  MergeStrategy mergeStrategy)
         {
             var configuration = GetExportConfiguration();
 
@@ -36,8 +28,8 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
             foreach (var hexagon in hexagons)
             {
                 //2. find tiles to which this hexagon belongs to
-                var relatedTiles = _hexagonService.GetTilesContainingHexagon(hexagon, configuration.MinZoom,
-                    configuration.MaxZoom, _hexagonDefinition, configuration.TileSize);
+                var relatedTiles = HexagonService.GetTilesContainingHexagon(hexagon, configuration.MinZoom,
+                    configuration.MaxZoom, hexagonDefinition, configuration.TileSize);
 
                 foreach (var tileInfo in relatedTiles)
                 {
@@ -52,7 +44,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
                     }
                     else
                     {
-                        var edgeSize = _hexagonDefinition.EdgeSize / Math.Pow(2, 10 - tileInfo.Z);
+                        var edgeSize = hexagonDefinition.EdgeSize / Math.Pow(2, 10 - tileInfo.Z);
                         tile = new VectorTile
                         {
                             TileInfo = tileInfo, Hexagons = new HashSet<Hexagon>(comparer),
@@ -110,8 +102,8 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 
                         if (existingHexagons.ContainsKey(hexagonKey))
                         {
-                            var existingHexagon = existingHexagons[hexagonKey];
-                            hexagon.MergeFrom(existingHexagon);
+//                            var existingHexagon = existingHexagons[hexagonKey];
+//                            hexagon.MergeFrom(existingHexagon);
                         }
                     }
 
@@ -153,5 +145,11 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
         protected abstract Task<VectorTile> FindVectorTileInContainer(TileInfo tileInfo);
 
         protected abstract Task<bool> ExportTileToContainer(VectorTile vectorTile);
+
+        public void Dispose()
+        {
+        }
+
+        
     }
 }

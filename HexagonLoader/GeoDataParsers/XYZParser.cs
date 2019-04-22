@@ -46,5 +46,9 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                 yield return geodata;
             }
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

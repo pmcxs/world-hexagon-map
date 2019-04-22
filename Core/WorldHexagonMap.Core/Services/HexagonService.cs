@@ -7,7 +7,7 @@ namespace WorldHexagonMap.Core.Services
     /// <summary>
     ///     Contains all logic related with hexagon calculations
     /// </summary>
-    public class HexagonService : IHexagonService
+    public static class HexagonService
     {
         /// <summary>
         ///     Obtains the Hexagon Location (u,v) for a given point (x,y)
@@ -22,7 +22,7 @@ namespace WorldHexagonMap.Core.Services
         /// <param name="hexagonDefinition"></param>
         /// aaa
         /// <returns>An hexagon U,V Location</returns>
-        public HexagonLocationUV GetHexagonLocationUVForPointXY(PointXY point, HexagonDefinition hexagonDefinition)
+        public static HexagonLocationUV GetHexagonLocationUVForPointXY(PointXY point, HexagonDefinition hexagonDefinition)
         {
             var u = Convert.ToInt32(Math.Round(point.X / hexagonDefinition.NarrowWidth));
             var v = Convert.ToInt32(Math.Round(point.Y / hexagonDefinition.Height - u * 0.5));
@@ -53,7 +53,7 @@ namespace WorldHexagonMap.Core.Services
             return null;
         }
 
-        public IList<PointXY> GetPointsXYOfHexagon(HexagonLocationUV location, HexagonDefinition hexagonDefinition)
+        public static IList<PointXY> GetPointsXYOfHexagon(HexagonLocationUV location, HexagonDefinition hexagonDefinition)
         {
             var center = GetCenterPointXYOfHexagonLocationUV(location, hexagonDefinition);
 
@@ -75,7 +75,7 @@ namespace WorldHexagonMap.Core.Services
         /// <param name="location"></param>
         /// <param name="hexagonDefinition"></param>
         /// <returns></returns>
-        public PointXY GetCenterPointXYOfHexagonLocationUV(HexagonLocationUV location,
+        public static PointXY GetCenterPointXYOfHexagonLocationUV(HexagonLocationUV location,
             HexagonDefinition hexagonDefinition)
         {
             var x = hexagonDefinition.NarrowWidth * location.U;
@@ -90,7 +90,7 @@ namespace WorldHexagonMap.Core.Services
         /// <param name="destination"></param>
         /// <param name="hexagonDefinition"></param>
         /// <returns></returns>
-        public int GetDistanceBetweenHexagonLocationUVs(HexagonLocationUV source, HexagonLocationUV destination,
+        public static int GetDistanceBetweenHexagonLocationUVs(HexagonLocationUV source, HexagonLocationUV destination,
             HexagonDefinition hexagonDefinition)
         {
             var du = destination.U - source.U;
@@ -99,7 +99,7 @@ namespace WorldHexagonMap.Core.Services
             return du * dv > 0 ? Math.Abs(du + dv) : Math.Max(Math.Abs(du), Math.Abs(dv));
         }
 
-        public IList<HexagonLocationUV> GetHexagonsInsideBoundingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
+        public static IList<HexagonLocationUV> GetHexagonsInsideBoundingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
             HexagonDefinition hexagonDefinition)
         {
             var topLeftUV = GetHexagonLocationUVForPointXY(topLeftCorner, hexagonDefinition);
@@ -141,7 +141,7 @@ namespace WorldHexagonMap.Core.Services
         }
 
 
-        public IEnumerable<TileInfo> GetTilesContainingHexagon(Hexagon hexagon, int minZoomLevel, int maxZoomLevel,
+        public static IEnumerable<TileInfo> GetTilesContainingHexagon(Hexagon hexagon, int minZoomLevel, int maxZoomLevel,
             HexagonDefinition hexagonDefinition, int tileSize)
         {
             var tiles = new HashSet<TileInfo>();
@@ -165,16 +165,6 @@ namespace WorldHexagonMap.Core.Services
             return tiles;
         }
 
-
-        public bool IsPointInsideHexagon(PointXY point, Hexagon hexagon, HexagonDefinition hexagonDefinition)
-        {
-            return false;
-        }
-
-        public void GetNeighbours(HexagonDefinition hexagonDefinition)
-        {
-        }
-
         /// <summary>
         ///     Determines if a specified point (x,y) is inside a given hexagon Location (u,v)
         /// </summary>
@@ -182,7 +172,7 @@ namespace WorldHexagonMap.Core.Services
         /// <param name="location"></param>
         /// <param name="hexagonDefinition"></param>
         /// <returns>True if inside the hexagon, false otherwise</returns>
-        public bool IsPointXYInsideHexagonLocationUV(PointXY point, HexagonLocationUV location,
+        public static bool IsPointXYInsideHexagonLocationUV(PointXY point, HexagonLocationUV location,
             HexagonDefinition hexagonDefinition)
         {
             var center = GetCenterPointXYOfHexagonLocationUV(location, hexagonDefinition);

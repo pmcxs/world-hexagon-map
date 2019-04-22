@@ -8,7 +8,6 @@ namespace WorldHexagonMap.Core.Test
 {
     public class HexagonServiceTests
     {
-        private readonly HexagonService _service = new HexagonService();
         private readonly HexagonDefinition _hexagonDefinition = new HexagonDefinition(100);
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace WorldHexagonMap.Core.Test
         [InlineData(1,0,150,86.6)]
         public void GetCenterPointXYOfHexagon(int u, int v, double x, double y)
         {
-            var pointXY = _service.GetCenterPointXYOfHexagonLocationUV(new HexagonLocationUV(u, v), _hexagonDefinition);
+            var pointXY = HexagonService.GetCenterPointXYOfHexagonLocationUV(new HexagonLocationUV(u, v), _hexagonDefinition);
 
             Assert.Equal(x, Math.Round(pointXY.X,2));
             Assert.Equal(y, Math.Round(pointXY.Y,2));
@@ -74,7 +73,7 @@ namespace WorldHexagonMap.Core.Test
         [Fact]
         public void GetPointsXYOfHexagon()
         {
-            IList<PointXY> points = _service.GetPointsXYOfHexagon(new HexagonLocationUV(0, 0), _hexagonDefinition);
+            IList<PointXY> points = HexagonService.GetPointsXYOfHexagon(new HexagonLocationUV(0, 0), _hexagonDefinition);
 
             Assert.Equal(-100, points[0].X);
             Assert.Equal(0, points[0].Y);
@@ -142,7 +141,7 @@ namespace WorldHexagonMap.Core.Test
         [InlineData(249,86.6,1,0)]
         public void GetHexagonLocationUVForPointXY(double x, double y, int u, int v)
         {
-            var hexagonLocationUV = _service.GetHexagonLocationUVForPointXY(new PointXY(x, y), _hexagonDefinition);
+            var hexagonLocationUV = HexagonService.GetHexagonLocationUVForPointXY(new PointXY(x, y), _hexagonDefinition);
             Assert.Equal(new HexagonLocationUV(u, v), hexagonLocationUV);
         }
 
@@ -173,7 +172,7 @@ namespace WorldHexagonMap.Core.Test
         [InlineData(110,0,0,0,false)]
         public void IsPointXYInsideHexagonLocationUV(double x, double y, int u, int v, bool isInside)
         {
-            var result = _service.IsPointXYInsideHexagonLocationUV(new PointXY(x, y), new HexagonLocationUV(u, v), _hexagonDefinition);
+            var result = HexagonService.IsPointXYInsideHexagonLocationUV(new PointXY(x, y), new HexagonLocationUV(u, v), _hexagonDefinition);
             Assert.Equal(isInside, result);
 
         }
@@ -201,7 +200,7 @@ namespace WorldHexagonMap.Core.Test
         [Fact]
         public void GetHexagonsInsideBoundingBox()
         {
-            IList<HexagonLocationUV> resultsA = _service.GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(450, 100), _hexagonDefinition);
+            IList<HexagonLocationUV> resultsA = HexagonService.GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(450, 100), _hexagonDefinition);
 
             Assert.Equal(resultsA[0], new HexagonLocationUV(0, 0));
             Assert.Equal(resultsA[1], new HexagonLocationUV(0, 1));
@@ -212,14 +211,14 @@ namespace WorldHexagonMap.Core.Test
             Assert.Equal(resultsA[6], new HexagonLocationUV(3, -2));
             Assert.Equal(resultsA[7], new HexagonLocationUV(3, -1));
 
-            IList<HexagonLocationUV> resultsB = _service.GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(320, 20), _hexagonDefinition);
+            IList<HexagonLocationUV> resultsB = HexagonService.GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(320, 20), _hexagonDefinition);
 
             Assert.Equal(resultsB[0], new HexagonLocationUV(0, 0));
             Assert.Equal(resultsB[1], new HexagonLocationUV(1, -1));
             Assert.Equal(resultsB[2], new HexagonLocationUV(1, 0));
             Assert.Equal(resultsB[3], new HexagonLocationUV(2, -1));
 
-            IList<HexagonLocationUV> resultsC = _service.GetHexagonsInsideBoundingBox(new PointXY(150, -20), new PointXY(320, 20), _hexagonDefinition);
+            IList<HexagonLocationUV> resultsC = HexagonService.GetHexagonsInsideBoundingBox(new PointXY(150, -20), new PointXY(320, 20), _hexagonDefinition);
 
             Assert.Equal(resultsC[0], new HexagonLocationUV(1, -1));
             Assert.Equal(resultsC[1], new HexagonLocationUV(1, 0));

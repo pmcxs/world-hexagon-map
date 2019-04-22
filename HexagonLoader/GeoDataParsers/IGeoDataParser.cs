@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
 {
-    public interface IGeoDataParser
+    public interface IGeoDataParser : IDisposable
     {
         IEnumerable<GeoData> ParseGeodataFromSource(LayersConfiguration sourceData, string filePath);
     }

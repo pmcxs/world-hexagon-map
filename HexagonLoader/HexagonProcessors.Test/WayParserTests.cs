@@ -12,7 +12,6 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
     /// </summary>
     public class WayParserTests
     {
-        private readonly HexagonService _service = new HexagonService();
         private readonly HexagonDefinition _hexagonDefinition = new HexagonDefinition(100);
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             var geoData = new GeoData
             {
                 Points = new PointXY[1][],
-                DataType = DataType.Way
+                DataType = DataType.Path
             };
 
             geoData.Points[0] = new[]
@@ -55,10 +54,10 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             };
 
 
-            var loader = new PathProcessor(_service, _hexagonDefinition);
+            var loader = new PathProcessor();
 
             //Act
-            var result = loader.ProcessGeoData(geoData).ToArray();
+            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
 
             //Verify
             Assert.Equal(4, result.Length);
@@ -105,7 +104,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             var geoData = new GeoData
             {
                 Points = new PointXY[1][],
-                DataType = DataType.Way
+                DataType = DataType.Path
             };
 
             geoData.Points[0] = new[]
@@ -116,10 +115,10 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
                 new PointXY(0.0, -10.0)
             };
 
-            var loader = new PathProcessor(_service, _hexagonDefinition);
+            var loader = new PathProcessor();
 
             //Act
-            var result = loader.ProcessGeoData(geoData).ToArray();
+            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
 
             //Verify
             Assert.Equal(4, result.Length);
@@ -171,7 +170,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             var geoData = new GeoData
             {
                 Points = new PointXY[2][],
-                DataType = DataType.Way
+                DataType = DataType.Path
             };
 
             geoData.Points[0] = new[]
@@ -190,9 +189,9 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             };
 
 
-            var loader = new PathProcessor(_service, _hexagonDefinition);
+            var loader = new PathProcessor();
 
-            var result = loader.ProcessGeoData(geoData).ToArray();
+            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
 
             Assert.Equal(6, result.Length);
 

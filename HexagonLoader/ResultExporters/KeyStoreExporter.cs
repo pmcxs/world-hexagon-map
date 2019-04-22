@@ -18,7 +18,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 
         public bool MergeSupported => false;
 
-        public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons)
+        public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons, HexagonDefinition hexagonDefinition,  MergeStrategy mergeStrategy)
         {
             foreach (var hexagon in hexagons)
             {
@@ -39,6 +39,10 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

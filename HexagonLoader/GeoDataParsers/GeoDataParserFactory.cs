@@ -28,7 +28,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                 case ".shp":
                     return new ShapefileParser();
                 default:
-                    throw new NotImplementedException("Unknown extension: " + extension);
+                    throw new NotSupportedException($"Unknown extension: {extension}");
             }
         }
     }

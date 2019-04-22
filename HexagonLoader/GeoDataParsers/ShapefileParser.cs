@@ -26,89 +26,111 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                         if (!geoData.Values.ContainsKey(filter.Field))
                             throw new Exception($"Field {filter.Field} was not found on shapefile {filePath}");
 
-                        if (Convert.ToString(geoData.Values[filter.Field]) == filter.Value) yield return geoData;
+                        if (Convert.ToString(geoData.Values[filter.Field]) == filter.Value)
+                        {
+                            yield return geoData;
+                        }
                     }
             }
         }
 
-        private PointXY[][] ConvertGeometryToPointXY(IGeometry geometry)
+        private static (PointXY[][],DataType) ConvertGeometryToPointXY(IGeometry geometry)
         {
-            PointXY[][] points = null;
+            PointXY[][] points;
 
-            if (geometry.GeometryType == "LineString")
+            switch (geometry.GeometryType)
             {
-                var lineString = geometry as ILineString;
-                if (lineString == null) throw new ArgumentException("Invalid ILineString instance");
-
-                var coordinates = lineString.Coordinates;
-                points = new PointXY[1][];
-                points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
-            }
-            else if (geometry.GeometryType == "Polygon")
-            {
-                var polygon = geometry as IPolygon;
-                if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
-
-                var coordinates = polygon.Coordinates;
-                points = new PointXY[1][];
-                points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
-            }
-            else if (geometry.GeometryType == "MultiPolygon")
-            {
-                var multiPolygon = geometry as IMultiPolygon;
-                if (multiPolygon == null) throw new ArgumentException("Invalid IMultiPolygon instance");
-
-                var numGeometries = multiPolygon.Geometries.Length;
-
-                points = new PointXY[numGeometries][];
-
-                for (var i = 0; i < numGeometries; i++)
+                case "LineString":
                 {
-                    var polygon = multiPolygon.Geometries[i] as IPolygon;
-                    if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
-
-                    var polygonCoordinates = polygon.Coordinates;
-                    points[i] = polygonCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
-                }
-            }
-            else if (geometry.GeometryType == "MultiLineString")
-            {
-                var multiLineString = geometry as IMultiLineString;
-                if (multiLineString == null) throw new ArgumentException("Invalid IMultiLineString instance");
-
-                var numGeometries = multiLineString.Geometries.Length;
-
-                points = new PointXY[numGeometries][];
-
-                for (var i = 0; i < numGeometries; i++)
-                {
-                    var lineString = multiLineString.Geometries[i] as ILineString;
+                    var lineString = geometry as ILineString;
                     if (lineString == null) throw new ArgumentException("Invalid ILineString instance");
 
-                    var lineStringCoordinates = lineString.Coordinates;
-                    points[i] = lineStringCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    var coordinates = lineString.Coordinates;
+                    points = new PointXY[1][];
+                    points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    
+                    return (points, DataType.Path);
                 }
-            }
+                case "Polygon":
+                {
+                    var polygon = geometry as IPolygon;
+                    if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
 
-            return points;
+                    var coordinates = polygon.Coordinates;
+                    points = new PointXY[1][];
+                    points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    
+                    return (points, DataType.Area);
+                }
+                case "MultiPolygon":
+                {
+                    var multiPolygon = geometry as IMultiPolygon;
+                    if (multiPolygon == null) throw new ArgumentException("Invalid IMultiPolygon instance");
+
+                    var numGeometries = multiPolygon.Geometries.Length;
+
+                    points = new PointXY[numGeometries][];
+
+                    for (var i = 0; i < numGeometries; i++)
+                    {
+                        var polygon = multiPolygon.Geometries[i] as IPolygon;
+                        if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
+
+                        var polygonCoordinates = polygon.Coordinates;
+                        points[i] = polygonCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    }
+
+                    return (points, DataType.Area);
+                }
+                case "MultiLineString":
+                {
+                    var multiLineString = geometry as IMultiLineString;
+                    if (multiLineString == null) throw new ArgumentException("Invalid IMultiLineString instance");
+
+                    var numGeometries = multiLineString.Geometries.Length;
+
+                    points = new PointXY[numGeometries][];
+
+                    for (var i = 0; i < numGeometries; i++)
+                    {
+                        var lineString = multiLineString.Geometries[i] as ILineString;
+                        if (lineString == null) throw new ArgumentException("Invalid ILineString instance");
+
+                        var lineStringCoordinates = lineString.Coordinates;
+                        points[i] = lineStringCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    }
+
+                    return (points, DataType.Path);
+                }
+                default:
+                    throw new NotSupportedException($"Unknown geometry type: {geometry.GeometryType}");
+            }
         }
 
-        protected GeoData ConvertReaderToGeoData(ShapefileDataReader reader)
+        private GeoData ConvertReaderToGeoData(ShapefileDataReader reader)
         {
             var geoData = new GeoData
                 {Values = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)};
 
-            geoData.Points = ConvertGeometryToPointXY(reader.Geometry);
+            
+            var(points,dataType) = ConvertGeometryToPointXY(reader.Geometry);
+
+            geoData.Points = points;
+            geoData.DataType = dataType;
 
             var header = reader.DbaseHeader;
 
             for (var i = 0; i < header.NumFields; i++)
             {
                 var field = header.Fields[i];
-                geoData.Values[field.Name] = reader.GetValue(i);
+                geoData.Values[field.Name] = reader.GetValue(i+1);
             }
-
+            
             return geoData;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

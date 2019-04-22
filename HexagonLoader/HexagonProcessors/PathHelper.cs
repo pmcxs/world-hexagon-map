@@ -8,42 +8,10 @@ using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
-    public class PathProcessor : IHexagonProcessor
+    public static class PathHelper
     {
-        public IEnumerable<HexagonProcessorResult> ProcessGeoData(GeoData geoData, HexagonDefinition hexagonDefinition, IValueHandler valueHandler = null)
-        {
-            foreach (var coordinates in geoData.Points)
-                for (var i = 0; i < coordinates.Length - 1; i++)
-                {
-                    var currentPoint = coordinates[i];
-                    var nextPoint = coordinates[i + 1];
-
-                    //for each segment check intersection with the edges from the hexagons
-
-                    var hexagons = GetHexagonsIntersectedByLine(currentPoint, nextPoint, hexagonDefinition);
-
-                    foreach (var hexagonLocation in hexagons)
-                    {
-                        var hexagonPoints = HexagonService.GetPointsXYOfHexagon(hexagonLocation, hexagonDefinition);
-
-                        for (var j = 0; j < hexagonPoints.Count - 1; j++)
-                        {
-                            var hexagonCurrentPoint = hexagonPoints[j];
-                            var hexagonNextPoint = hexagonPoints[j + 1];
-
-                            if (GetLineIntersection(currentPoint, nextPoint, hexagonCurrentPoint, hexagonNextPoint) !=
-                                null)
-                                yield return new HexagonProcessorResult
-                                {
-                                    HexagonLocationUV = hexagonLocation,
-                                    Value = (int) Math.Pow(2, j)
-                                };
-                        }
-                    }
-                }
-        }
-
-        private IEnumerable<HexagonLocationUV> GetHexagonsIntersectedByLine(PointXY startPoint, PointXY endPoint, HexagonDefinition hexagonDefinition)
+      
+        public static IEnumerable<HexagonLocationUV> GetHexagonsIntersectedByLine(PointXY startPoint, PointXY endPoint, HexagonDefinition hexagonDefinition)
         {
             var startHexagon = HexagonService.GetHexagonLocationUVForPointXY(startPoint, hexagonDefinition);
             var endHexagon = HexagonService.GetHexagonLocationUVForPointXY(endPoint, hexagonDefinition);
@@ -78,7 +46,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
         }
 
 
-        private PointXY GetLineIntersection(PointXY p0, PointXY p1, PointXY p2, PointXY p3)
+        public static PointXY GetLineIntersection(PointXY p0, PointXY p1, PointXY p2, PointXY p3)
         {
             var s1X = p1.X - p0.X;
             var s1Y = p1.Y - p0.Y;

@@ -9,16 +9,8 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
 {
     public class AreaProcessor : IHexagonProcessor
     {
-        private readonly HexagonDefinition _hexagonDefinition;
-        private readonly IHexagonService _hexagonService;
-
-        public AreaProcessor(IHexagonService hexagonService, HexagonDefinition hexagonDefinition)
-        {
-            _hexagonService = hexagonService;
-            _hexagonDefinition = hexagonDefinition;
-        }
-
-        public IEnumerable<HexagonProcessorResult> ProcessGeoData(GeoData geoData, IValueHandler valueHandler = null)
+       
+        public IEnumerable<HexagonProcessorResult> ProcessGeoData(GeoData geoData, HexagonDefinition hexagonDefinition, IValueHandler valueHandler = null)
         {
             foreach (var coordinates in geoData.Points)
             {
@@ -26,13 +18,12 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                 var bottomRightCoordinate = new PointXY(coordinates.Max(c => c.X), coordinates.Max(c => c.Y));
 
                 var polygonHexagons =
-                    _hexagonService.GetHexagonsInsideBoundingBox(topLeftCoordinate, bottomRightCoordinate,
-                        _hexagonDefinition);
+                    HexagonService.GetHexagonsInsideBoundingBox(topLeftCoordinate, bottomRightCoordinate, hexagonDefinition);
 
                 foreach (var hexagonLocation in polygonHexagons)
                 {
                     var center =
-                        _hexagonService.GetCenterPointXYOfHexagonLocationUV(hexagonLocation, _hexagonDefinition);
+                        HexagonService.GetCenterPointXYOfHexagonLocationUV(hexagonLocation, hexagonDefinition);
 
                     if (IsPointInsidePolygon(new Coordinate(center.X, center.Y), coordinates))
                         yield return new HexagonProcessorResult
@@ -43,8 +34,9 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                 }
             }
         }
-
-        private bool IsPointInsidePolygon(Coordinate target, PointXY[] points)
+        
+       
+        private static bool IsPointInsidePolygon(Coordinate target, PointXY[] points)
         {
             var x = target.X;
             var y = target.Y;

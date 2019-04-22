@@ -13,22 +13,23 @@ using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors.ValueHandlers;
 using WorldHexagonMap.HexagonDataLoader.ResultExporters;
 using WorldHexagonMap.HexagonDataLoader.ResultPostProcessors;
+using MergeStrategy = WorldHexagonMap.HexagonDataLoader.ResultExporters.MergeStrategy;
 
 
 namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
-    public sealed class HexagonDataLoaderService : IHexagonDataLoaderService
+    public sealed class HexagonDataLoaderPipelineService : IHexagonDataLoaderPipelineService
     {
         private readonly LoaderConfiguration _configuration;
         private readonly IGeoDataParserFactory _geoDataParserFactory;
         private readonly IHexagonProcessorFactory _hexagonParserFactory;
 
-        private readonly ILogger<HexagonDataLoaderService> _logger;
+        private readonly ILogger<HexagonDataLoaderPipelineService> _logger;
         private readonly IPostProcessorFactory _postProcessorFactory;
         private readonly IResultExporterFactory _resultExporterFactory;
         private readonly IValueHandlerFactory _valueHandlerFactory;
 
-        public HexagonDataLoaderService(LoaderConfiguration configuration, ILoggerFactory loggerFactory,
+        public HexagonDataLoaderPipelineService(LoaderConfiguration configuration, ILoggerFactory loggerFactory,
             IHexagonProcessorFactory hexagonParserFactory, IGeoDataParserFactory geoDataParserFactory,
             IPostProcessorFactory postProcessorFactory, IValueHandlerFactory valueHandlerFactory,
             IResultExporterFactory resultExportFactory)
@@ -40,7 +41,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             _valueHandlerFactory = valueHandlerFactory;
             _resultExporterFactory = resultExportFactory;
 
-            _logger = loggerFactory.CreateLogger<HexagonDataLoaderService>();
+            _logger = loggerFactory.CreateLogger<HexagonDataLoaderPipelineService>();
         }
 
 
@@ -73,10 +74,10 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             Parallel.ForEach(layers.Sources, options, sourceData =>
             {
                 //3. Load GeoData
-                var geoData = LoadGeoData(sourceData, basePath);
+                IEnumerable<GeoData> geoData = LoadGeoData(sourceData, basePath);
 
                 //4. Convert the GeoData to hexagons
-                var result = ConvertGeoDataToHexagons(geoData, sourceData.Targets);
+                IEnumerable<HexagonProcessorResult> result = ConvertGeoDataToHexagons(geoData, sourceData.Targets);
 
                 //5. Merge Results into global result-set
                 MergeResults(result, globalResult);
@@ -92,7 +93,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                 results = globalResult.GetHexagons();
 
             //7. Export Results
-            await ExportResultsAsync(results.ToArray(), exportHandler);
+            await ExportResultsAsync(results.ToArray(), new HexagonDefinition(10), exportHandler);
 
             _logger.LogInformation(DateTime.Now + ": Process Finished in " + clock.Elapsed.TotalSeconds);
 
@@ -170,10 +171,11 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                         ? _valueHandlerFactory.GetInstance(target.Handler)
                         : null;
 
-                    foreach (var result in parser.ProcessGeoData(geo, handler))
+                    //TODO: Missing Hexagon Definition
+                    foreach (var result in parser.ProcessGeoData(geo, null, handler))
                     {
                         result.Target = target.Field;
-                        result.MergeStrategy = GetMergeStrategy(target.Merge);
+                        //result.MergeStrategy = GetMergeStrategy(target.Merge);
                         yield return result;
                     }
                 }
@@ -181,11 +183,13 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
         }
 
 
-        private async Task<bool> ExportResultsAsync(IEnumerable<Hexagon> hexagons, string exportHandler)
+        private async Task<bool> ExportResultsAsync(IEnumerable<Hexagon> hexagons, HexagonDefinition hexagonDefinition, string exportHandler)
         {
             _logger.LogInformation(DateTime.Now + ": Exporting Results with " + exportHandler);
             var exporter = _resultExporterFactory.GetInstance(exportHandler);
-            return await exporter.ExportResults(hexagons);
+            
+            //TODO: Broken merge strategy
+            return await exporter.ExportResults(hexagons, hexagonDefinition, MergeStrategy.Max);
         }
 
         private static void MergeResults(IEnumerable<HexagonProcessorResult> results, IHexagonRepository globalResult)
@@ -198,36 +202,37 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                     globalResult[result.HexagonLocationUV] = data;
                 }
 
-                switch (result.MergeStrategy)
-                {
-                    case MergeStrategy.Mask:
-                        data[result.Target] = (int) (data[result.Target] ?? 0) | (int) result.Value;
-                        break;
-                    case MergeStrategy.Replace:
-                        data[result.Target] = result.Value;
-                        break;
-                    case MergeStrategy.Max:
-
-                        switch (result.Value)
-                        {
-                            case int valInt:
-                                data[result.Target] = Math.Max((int) (data[result.Target] ?? 0), valInt);
-                                break;
-                            case double valDouble:
-                                data[result.Target] =
-                                    Math.Max((double) (data[result.Target] ?? 0.0), valDouble);
-                                break;
-                            default:
-                                throw new FormatException("value " + result.Value + " can't be merged");
-                        }
-
-                        break;
-                    case MergeStrategy.Min:
-                        data[result.Target] = Math.Min((int) (data[result.Target] ?? 0), (int) result.Value);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                //TODO: FIX BROKEN MERGE STRATEGY
+//                switch (result.MergeStrategy)
+//                {
+//                    case MergeStrategy.Mask:
+//                        data[result.Target] = (int) (data[result.Target] ?? 0) | (int) result.Value;
+//                        break;
+//                    case MergeStrategy.Replace:
+//                        data[result.Target] = result.Value;
+//                        break;
+//                    case MergeStrategy.Max:
+//
+//                        switch (result.Value)
+//                        {
+//                            case int valInt:
+//                                data[result.Target] = Math.Max((int) (data[result.Target] ?? 0), valInt);
+//                                break;
+//                            case double valDouble:
+//                                data[result.Target] =
+//                                    Math.Max((double) (data[result.Target] ?? 0.0), valDouble);
+//                                break;
+//                            default:
+//                                throw new FormatException("value " + result.Value + " can't be merged");
+//                        }
+//
+//                        break;
+//                    case MergeStrategy.Min:
+//                        data[result.Target] = Math.Min((int) (data[result.Target] ?? 0), (int) result.Value);
+//                        break;
+//                    default:
+//                        throw new ArgumentOutOfRangeException();
+//                }
             }
         }
 
@@ -238,7 +243,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                 case "area":
                     return DataType.Area;
                 case "way":
-                    return DataType.Way;
+                    return DataType.Path;
                 case "pixel":
                     return DataType.Pixel;
                 default:
@@ -246,21 +251,21 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             }
         }
 
-        private static MergeStrategy GetMergeStrategy(string mergeStrategy)
-        {
-            switch (mergeStrategy.ToLower())
-            {
-                case "replace":
-                    return MergeStrategy.Replace;
-                case "mask":
-                    return MergeStrategy.Mask;
-                case "max":
-                    return MergeStrategy.Max;
-                case "min":
-                    return MergeStrategy.Min;
-                default:
-                    throw new NotSupportedException("Merge Strategy " + mergeStrategy + " not supported");
-            }
-        }
+//        private static MergeStrategy GetMergeStrategy(string mergeStrategy)
+//        {
+//            switch (mergeStrategy.ToLower())
+//            {
+//                case "replace":
+//                    return MergeStrategy.Replace;
+//                case "mask":
+//                    return MergeStrategy.Mask;
+//                case "max":
+//                    return MergeStrategy.Max;
+//                case "min":
+//                    return MergeStrategy.Min;
+//                default:
+//                    throw new NotSupportedException("Merge Strategy " + mergeStrategy + " not supported");
+//            }
+//        }
     }
 }

@@ -27,58 +27,71 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
             var geoData = new GeoData
                 {Values = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)};
 
-            if (feature.Geometry.GeometryType == "LineString")
+            switch (feature.Geometry.GeometryType)
             {
-                var lineString = feature.Geometry as ILineString;
-                if (lineString == null) throw new ArgumentException("Invalid ILineString instance");
-
-                var coordinates = lineString.Coordinates;
-                geoData.Points = new PointXY[1][];
-                geoData.Points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
-            }
-            else if (feature.Geometry.GeometryType == "Polygon")
-            {
-                var polygon = feature.Geometry as IPolygon;
-                if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
-
-                var coordinates = polygon.Coordinates;
-                geoData.Points = new PointXY[1][];
-                geoData.Points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
-            }
-            else if (feature.Geometry.GeometryType == "MultiPolygon")
-            {
-                var multiPolygon = feature.Geometry as IMultiPolygon;
-                if (multiPolygon == null) throw new ArgumentException("Invalid IMultiPolygon instance");
-
-                var numGeometries = multiPolygon.Geometries.Length;
-
-                geoData.Points = new PointXY[numGeometries][];
-
-                for (var i = 0; i < numGeometries; i++)
+                case "LineString":
                 {
-                    var polygon = multiPolygon.Geometries[i] as IPolygon;
-                    if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
-
-                    var polygonCoordinates = polygon.Coordinates;
-                    geoData.Points[i] = polygonCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
-                }
-            }
-            else if (feature.Geometry.GeometryType == "MultiLineString")
-            {
-                var multiLineString = feature.Geometry as IMultiLineString;
-                if (multiLineString == null) throw new ArgumentException("Invalid IMultiLineString instance");
-
-                var numGeometries = multiLineString.Geometries.Length;
-
-                geoData.Points = new PointXY[numGeometries][];
-
-                for (var i = 0; i < numGeometries; i++)
-                {
-                    var lineString = multiLineString.Geometries[i] as ILineString;
+                    var lineString = feature.Geometry as ILineString;
                     if (lineString == null) throw new ArgumentException("Invalid ILineString instance");
 
-                    var lineStringCoordinates = lineString.Coordinates;
-                    geoData.Points[i] = lineStringCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    var coordinates = lineString.Coordinates;
+                    geoData.Points = new PointXY[1][];
+                    geoData.Points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    geoData.DataType = DataType.Path;
+                    break;
+                }
+                case "Polygon":
+                {
+                    var polygon = feature.Geometry as IPolygon;
+                    if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
+
+                    var coordinates = polygon.Coordinates;
+                    geoData.Points = new PointXY[1][];
+                    geoData.Points[0] = coordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    geoData.DataType = DataType.Area;
+                    break;
+                }
+                case "MultiPolygon":
+                {
+                    var multiPolygon = feature.Geometry as IMultiPolygon;
+                    if (multiPolygon == null) throw new ArgumentException("Invalid IMultiPolygon instance");
+
+                    var numGeometries = multiPolygon.Geometries.Length;
+
+                    geoData.Points = new PointXY[numGeometries][];
+                    geoData.DataType = DataType.Area;
+
+                    for (var i = 0; i < numGeometries; i++)
+                    {
+                        var polygon = multiPolygon.Geometries[i] as IPolygon;
+                        if (polygon == null) throw new ArgumentException("Invalid IPolygon instance");
+
+                        var polygonCoordinates = polygon.Coordinates;
+                        geoData.Points[i] = polygonCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    }
+
+                    break;
+                }
+                case "MultiLineString":
+                {
+                    var multiLineString = feature.Geometry as IMultiLineString;
+                    if (multiLineString == null) throw new ArgumentException("Invalid IMultiLineString instance");
+
+                    var numGeometries = multiLineString.Geometries.Length;
+
+                    geoData.Points = new PointXY[numGeometries][];
+                    geoData.DataType = DataType.Path;
+
+                    for (var i = 0; i < numGeometries; i++)
+                    {
+                        var lineString = multiLineString.Geometries[i] as ILineString;
+                        if (lineString == null) throw new ArgumentException("Invalid ILineString instance");
+
+                        var lineStringCoordinates = lineString.Coordinates;
+                        geoData.Points[i] = lineStringCoordinates.Select(c => new PointXY(c.X, c.Y)).ToArray();
+                    }
+
+                    break;
                 }
             }
 
@@ -86,6 +99,10 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                 geoData.Values[attributeName] = feature.Attributes[attributeName];
 
             return geoData;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

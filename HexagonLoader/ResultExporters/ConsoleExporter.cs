@@ -8,10 +8,14 @@ namespace WorldHexagonMap.HexagonDataLoader.ResultExporters
 {
     public class ConsoleExporter : IResultExporter
     {
-        public async Task<bool> ExportResults(IEnumerable<Hexagon> hexagons)
+        public Task<bool> ExportResults(IEnumerable<Hexagon> hexagons, HexagonDefinition hexagonDefinition,  MergeStrategy mergeStrategy)
         {
             Console.WriteLine($"{hexagons.Count()} processed successfully");
-            return true;
+            return Task.FromResult(true);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

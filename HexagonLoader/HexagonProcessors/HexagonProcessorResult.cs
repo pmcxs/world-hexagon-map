@@ -8,6 +8,6 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
         public HexagonLocationUV HexagonLocationUV { get; set; }
 
         public string Target { get; set; }
-        public MergeStrategy MergeStrategy { get; set; }
+//        public MergeStrategy MergeStrategy { get; set; }
     }
 }

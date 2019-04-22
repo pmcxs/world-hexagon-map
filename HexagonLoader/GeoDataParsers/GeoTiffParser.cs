@@ -82,5 +82,9 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
             {
             }
         }
+
+        public void Dispose()
+        {
+        }
     }
 }
