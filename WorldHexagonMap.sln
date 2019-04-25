@@ -7,25 +7,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C641D350-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HexagonDataLoader", "HexagonDataLoader", "{6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test", "HexagonLoader\GeoDataParsers.Test\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test.csproj", "{9F19DC55-C4A1-46FD-9B75-52BDBF728871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test", "HexagonDataLoader\GeoDataParsers.Test\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.Test.csproj", "{9F19DC55-C4A1-46FD-9B75-52BDBF728871}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.Core.Test", "Core\WorldHexagonMap.Core.Test\WorldHexagonMap.Core.Test.csproj", "{3A12BB3D-6E79-43F1-A525-96B9AAC8087C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.Core", "Core\WorldHexagonMap.Core\WorldHexagonMap.Core.csproj", "{10592B2F-23C1-4F92-A709-2174604D7D50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ConsoleApp", "HexagonLoader\ConsoleApp\WorldHexagonMap.HexagonDataLoader.ConsoleApp.csproj", "{8A925F37-742F-4D12-B4F6-04F6E394D953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ConsoleApp", "HexagonDataLoader\ConsoleApp\WorldHexagonMap.HexagonDataLoader.ConsoleApp.csproj", "{8A925F37-742F-4D12-B4F6-04F6E394D953}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapTileGenerator", "MapTileGenerator", "{E7E3554F-E27B-4DC6-A304-07C41AECC314}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.GeoDataParsers", "HexagonLoader\GeoDataParsers\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.csproj", "{FC969F52-5801-46A6-88F8-3ED9D0336F44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.GeoDataParsers", "HexagonDataLoader\GeoDataParsers\WorldHexagonMap.HexagonDataLoader.GeoDataParsers.csproj", "{FC969F52-5801-46A6-88F8-3ED9D0336F44}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors", "HexagonLoader\HexagonProcessors\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.csproj", "{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors", "HexagonDataLoader\HexagonProcessors\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.csproj", "{E3187CE8-6F70-4857-AEDC-A9CC9643D36D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ResultPostProcessors", "HexagonLoader\ResultPostProcessors\WorldHexagonMap.HexagonDataLoader.ResultPostProcessors.csproj", "{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ResultPostProcessors", "HexagonDataLoader\ResultPostProcessors\WorldHexagonMap.HexagonDataLoader.ResultPostProcessors.csproj", "{0B52B2B4-84A6-4782-AB99-6982ADDDAC41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ResultExporters", "HexagonLoader\ResultExporters\WorldHexagonMap.HexagonDataLoader.ResultExporters.csproj", "{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonDataLoader.ResultExporters", "HexagonDataLoader\ResultExporters\WorldHexagonMap.HexagonDataLoader.ResultExporters.csproj", "{16EF9809-317F-4A5F-83AA-7CC856BEFA1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test", "HexagonLoader\HexagonProcessors.Test\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test.csproj", "{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test", "HexagonDataLoader\HexagonProcessors.Test\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test.csproj", "{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

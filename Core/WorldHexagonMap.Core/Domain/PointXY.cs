@@ -2,6 +2,8 @@
 
 namespace WorldHexagonMap.Core.Domain
 {
+    public delegate (double,double) CoordinateToPointXY(double latitude, double longitude);
+    
     [Serializable]
     public class PointXY
     {
@@ -11,8 +13,8 @@ namespace WorldHexagonMap.Core.Domain
             Y = y;
         }
 
-        public double X { get; }
-        public double Y { get; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
         private bool Equals(PointXY other)
         {

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Domain.Enums;
-using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using Xunit;
 
@@ -54,25 +53,28 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             };
 
 
-            var loader = new PathProcessor();
-
             //Act
-            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
+            Hexagon[] hexagons = HexagonProcessor.ProcessPath(geoData,_hexagonDefinition, 
+                new[]
+                {
+                    new LayersLoaderTarget { Destination = "Road"}
+                    
+                }).ToArray();
 
             //Verify
-            Assert.Equal(4, result.Length);
+            Assert.Equal(4, hexagons.Length);
 
-            Assert.Equal(new HexagonLocationUV(0, 0), result[0].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomRight, (WayMask) result[0].Value);
+            Assert.Equal(new HexagonLocationUV(0, 0), hexagons[0].LocationUV);
+            Assert.Equal(WayMask.BottomRight, (WayMask) hexagons[0].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, 0), result[1].HexagonLocationUV);
-            Assert.Equal(WayMask.TopLeft, (WayMask) result[1].Value);
+            Assert.Equal(new HexagonLocationUV(1, 0), hexagons[1].LocationUV);
+            Assert.Equal(WayMask.TopLeft, (WayMask) hexagons[1].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, 0), result[2].HexagonLocationUV);
-            Assert.Equal(WayMask.TopRight, (WayMask) result[2].Value);
+            Assert.Equal(new HexagonLocationUV(1, 0), hexagons[2].LocationUV);
+            Assert.Equal(WayMask.TopRight, (WayMask) hexagons[2].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(2, -1), result[3].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomLeft, (WayMask) result[3].Value);
+            Assert.Equal(new HexagonLocationUV(2, -1), hexagons[3].LocationUV);
+            Assert.Equal(WayMask.BottomLeft, (WayMask) hexagons[3].HexagonData["Road"]);
         }
 
 
@@ -115,25 +117,29 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
                 new PointXY(0.0, -10.0)
             };
 
-            var loader = new PathProcessor();
 
             //Act
-            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
+            Hexagon[] hexagons = HexagonProcessor.ProcessPath(geoData,_hexagonDefinition, 
+                new[]
+                {
+                    new LayersLoaderTarget { Destination = "Road"}
+                    
+                }).ToArray();
 
             //Verify
-            Assert.Equal(4, result.Length);
+            Assert.Equal(4, hexagons.Length);
 
-            Assert.Equal(new HexagonLocationUV(0, 0), result[0].HexagonLocationUV);
-            Assert.Equal(WayMask.TopRight, (WayMask) result[0].Value);
+            Assert.Equal(new HexagonLocationUV(0, 0), hexagons[0].LocationUV);
+            Assert.Equal(WayMask.TopRight, (WayMask) hexagons[0].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, -1), result[1].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomLeft, (WayMask) result[1].Value);
+            Assert.Equal(new HexagonLocationUV(1, -1), hexagons[1].LocationUV);
+            Assert.Equal(WayMask.BottomLeft, (WayMask) hexagons[1].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(0, 0), result[2].HexagonLocationUV);
-            Assert.Equal(WayMask.TopRight, (WayMask) result[2].Value);
+            Assert.Equal(new HexagonLocationUV(0, 0), hexagons[2].LocationUV);
+            Assert.Equal(WayMask.TopRight, (WayMask) hexagons[2].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, -1), result[3].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomLeft, (WayMask) result[3].Value);
+            Assert.Equal(new HexagonLocationUV(1, -1), hexagons[3].LocationUV);
+            Assert.Equal(WayMask.BottomLeft, (WayMask) hexagons[3].HexagonData["Road"]);
         }
 
 
@@ -189,29 +195,32 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
             };
 
 
-            var loader = new PathProcessor();
+            Hexagon[] hexagons = HexagonProcessor.ProcessPath(geoData,_hexagonDefinition, 
+                new[]
+                {
+                    new LayersLoaderTarget { Destination = "Road"}
+                    
+                }).ToArray();
 
-            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
+            Assert.Equal(6, hexagons.Length);
 
-            Assert.Equal(6, result.Length);
+            Assert.Equal(new HexagonLocationUV(0, 0), hexagons[0].LocationUV);
+            Assert.Equal(WayMask.BottomRight, (WayMask) hexagons[0].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(0, 0), result[0].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomRight, (WayMask) result[0].Value);
+            Assert.Equal(new HexagonLocationUV(1, 0), hexagons[1].LocationUV);
+            Assert.Equal(WayMask.TopLeft, (WayMask) hexagons[1].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, 0), result[1].HexagonLocationUV);
-            Assert.Equal(WayMask.TopLeft, (WayMask) result[1].Value);
+            Assert.Equal(new HexagonLocationUV(1, 0), hexagons[2].LocationUV);
+            Assert.Equal(WayMask.TopRight, (WayMask) hexagons[2].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, 0), result[2].HexagonLocationUV);
-            Assert.Equal(WayMask.TopRight, (WayMask) result[2].Value);
+            Assert.Equal(new HexagonLocationUV(2, -1), hexagons[3].LocationUV);
+            Assert.Equal(WayMask.BottomLeft, (WayMask) hexagons[3].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(2, -1), result[3].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomLeft, (WayMask) result[3].Value);
+            Assert.Equal(new HexagonLocationUV(1, -1), hexagons[4].LocationUV);
+            Assert.Equal(WayMask.BottomRight, (WayMask) hexagons[4].HexagonData["Road"]);
 
-            Assert.Equal(new HexagonLocationUV(1, -1), result[4].HexagonLocationUV);
-            Assert.Equal(WayMask.BottomRight, (WayMask) result[4].Value);
-
-            Assert.Equal(new HexagonLocationUV(2, -1), result[5].HexagonLocationUV);
-            Assert.Equal(WayMask.TopLeft, (WayMask) result[5].Value);
+            Assert.Equal(new HexagonLocationUV(2, -1), hexagons[5].LocationUV);
+            Assert.Equal(WayMask.TopLeft, (WayMask) hexagons[5].HexagonData["Road"]);
         }
     }
 }

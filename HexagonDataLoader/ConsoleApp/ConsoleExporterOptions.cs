@@ -1,35 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using CommandLine;
 using WorldHexagonMap.Core.Domain;
-using WorldHexagonMap.Core.Utils;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 using WorldHexagonMap.HexagonDataLoader.HexagonProcessors;
 using WorldHexagonMap.HexagonDataLoader.ResultExporters;
 
 namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
-
-    internal enum InputType
-    {
-        None,
-        Shapefile,
-        Raster,
-        XYZ,
-        GeoJson
-    }
-    
-    internal enum OutputType
-    {
-        None,
-        Console,
-        SQLite
-    }
-  
-    internal class Options
+    internal class ConsoleExporterOptions
     {
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
         public bool Verbose { get; set; }
@@ -161,68 +141,21 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
             return new HexagonDefinition(HexagonSize);
         }
 
-    
     }
-
-    internal class Program
+    
+    internal enum InputType
     {
-        public static void Main(string[] args)
-        {
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(RunOptionsAndReturnExitCode)
-                .WithNotParsed(HandleParseError);
-
-        }
-
-        private static void HandleParseError(IEnumerable<Error> errs)
-        {
-            
-        }
-
-        private static void RunOptionsAndReturnExitCode(Options opts)
-        {
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            
-            LayersConfiguration layer = opts.GetLayersConfiguration();
-            MergeStrategy mergeStrategy = opts.Merge;
-
- 
-            using (IGeoDataParser geoParser = opts.GetGeoDataParser())
-            using (IResultExporter exporter = opts.GetResultExporter())
-            {
-                HexagonDefinition hexagonDefinition = opts.GetHexagonDefinition();
-
-                IEnumerable<GeoData> geoData = LoadGeoData(geoParser, layer, opts.Input);
-                IEnumerable<Hexagon> results = HexagonProcessor.ProcessHexagonsFromGeoData(geoData, hexagonDefinition, layer.Targets);
-
-                ExportResults(exporter, results, hexagonDefinition, mergeStrategy);
-            }
-            
-            stopwatch.Stop();
-            
-            Console.WriteLine($"Process took {stopwatch.ElapsedMilliseconds} ms");
-        }
-
-        private static void ExportResults(IResultExporter exporter, IEnumerable<Hexagon> results, HexagonDefinition hexagonDefinition, MergeStrategy mergeStrategy)
-        {
-            exporter.ExportResults(results, hexagonDefinition, mergeStrategy).Wait();
-        }
-
-        private static IEnumerable<GeoData> LoadGeoData(IGeoDataParser geoParser, LayersConfiguration sourceData, string basePath)
-        {
-            var geoData = geoParser.ParseGeodataFromSource(sourceData, Path.Combine(basePath, sourceData.Source));
-
-            foreach (var geo in geoData)
-            {
-                for (var index = 0; index < geo.Points.Length; index++)
-                    geo.Points[index] = geo
-                        .Points[index]
-                        .Select(p => GeoUtils.CoordinateToPixel(p.X, p.Y))
-                        .ToArray();
-                yield return geo;
-            }
-        }
-
+        None,
+        Shapefile,
+        Raster,
+        XYZ,
+        GeoJson
+    }
+    
+    internal enum OutputType
+    {
+        None,
+        Console,
+        SQLite
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
+using WorldHexagonMap.Core.Utils;
 using WorldHexagonMap.HexagonDataLoader.GeoDataParsers;
 
 namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
@@ -13,6 +14,14 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
         {
             foreach (var geo in geoData)
             {
+                foreach (PointXY[] coordinates in geo.Points)
+                {
+                    foreach (PointXY point in coordinates)
+                    {
+                        (point.X, point.Y) = GeoUtils.CoordinateToPixel(point.X, point.Y);
+                    }
+                }
+                
                 switch (geo.DataType)
                 {
                     case DataType.Area:
@@ -37,7 +46,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
             }
         }
 
-        private static IEnumerable<Hexagon> ProcessPath(GeoData geoData, HexagonDefinition hexagonDefinition, LayersLoaderTarget[] targets)
+        public static IEnumerable<Hexagon> ProcessPath(GeoData geoData, HexagonDefinition hexagonDefinition, LayersLoaderTarget[] targets = null)
         {
             foreach (var coordinates in geoData.Points)
             for (var i = 0; i < coordinates.Length - 1; i++)
@@ -64,9 +73,13 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                             
                             Hexagon hexagon = new Hexagon {LocationUV = hexagonLocation, HexagonData = new HexagonData()};
 
-                            foreach (LayersLoaderTarget target in targets)
+                            //TODO: Merge with logic below
+                            if (targets != null)
                             {
-                                hexagon.HexagonData[target.Destination] = (int) Math.Pow(2, j);
+                                foreach (LayersLoaderTarget target in targets)
+                                {
+                                    hexagon.HexagonData[target.Destination] = (int) Math.Pow(2, j);
+                                }
                             }
 
                             yield return hexagon;
@@ -76,12 +89,14 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
             }
         }
 
-        private static IEnumerable<Hexagon> ProcessArea(GeoData geoData, HexagonDefinition hexagonDefinition, LayersLoaderTarget[] targets)
+        public static IEnumerable<Hexagon> ProcessArea(GeoData geoData, HexagonDefinition hexagonDefinition, LayersLoaderTarget[] targets = null)
         {
-            foreach (var coordinates in geoData.Points)
+            foreach (PointXY[] geoCoordinates in geoData.Points)
             {
-                var topLeftCoordinate = new PointXY(coordinates.Min(c => c.X), coordinates.Min(c => c.Y));
-                var bottomRightCoordinate = new PointXY(coordinates.Max(c => c.X), coordinates.Max(c => c.Y));
+                //PointXY[] pixelCoordinates = geoCoordinates.Select(p => GeoUtils.CoordinateToPixel(p.X, p.Y)).ToArray();
+                
+                var topLeftCoordinate = new PointXY(geoCoordinates.Min(c => c.X), geoCoordinates.Min(c => c.Y));
+                var bottomRightCoordinate = new PointXY(geoCoordinates.Max(c => c.X), geoCoordinates.Max(c => c.Y));
 
                 var polygonHexagons = HexagonService.GetHexagonsInsideBoundingBox(topLeftCoordinate, bottomRightCoordinate, hexagonDefinition);
 
@@ -89,13 +104,17 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                 {
                     var center = HexagonService.GetCenterPointXYOfHexagonLocationUV(hexagonLocation, hexagonDefinition);
 
-                    if (AreaHelper.IsPointInsidePolygon(center.X, center.Y, coordinates))
+                    if (AreaHelper.IsPointInsidePolygon(center.X, center.Y, geoCoordinates))
                     {
                         Hexagon hexagon = new Hexagon {LocationUV = hexagonLocation, HexagonData = new HexagonData()};
 
-                        foreach (LayersLoaderTarget target in targets)
+                        //TODO: Merge with logic above
+                        if (targets != null)
                         {
-                            hexagon.HexagonData[target.Destination] = geoData.Values[target.SourceField];
+                            foreach (LayersLoaderTarget target in targets)
+                            {
+                                hexagon.HexagonData[target.Destination] = geoData.Values[target.SourceField];
+                            }
                         }
 
                         yield return hexagon;

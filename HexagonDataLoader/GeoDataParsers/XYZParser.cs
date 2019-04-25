@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using NetTopologySuite.Geometries;
 using WorldHexagonMap.Core.Domain;
 
 namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
@@ -26,22 +27,28 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                     Points = new PointXY[1][]
                 };
 
+
                 if (Math.Abs(sourceData.XOffset) > (decimal) 0.0 && Math.Abs(sourceData.YOffset) > (decimal) 0.0)
                     geodata.Points[0] = new[]
                     {
                         new PointXY(longitude - (double) sourceData.XOffset,
                             latitude - (double) sourceData.YOffset), //TOP-LEFT
+                        
                         new PointXY(longitude + (double) sourceData.XOffset,
                             latitude + (double) sourceData.YOffset) //BOTTOM-RIGHT
                     };
                 else
+                {
                     geodata.Points[0] = new[] {new PointXY(longitude, latitude)};
-
+                }
 
                 var values = components.Skip(2);
 
                 var fieldCount = 0;
-                foreach (var value in values) geodata.Values.Add("custom_" + fieldCount++, value);
+                foreach (var value in values)
+                {
+                    geodata.Values.Add("custom_" + fieldCount++, value);
+                }
 
                 yield return geodata;
             }

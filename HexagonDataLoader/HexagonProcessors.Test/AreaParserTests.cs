@@ -68,18 +68,12 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
                 new PointXY(250.0, 20.0)
             };
 
-            var loader = new AreaProcessor();
-
             //Act
-            var result = loader.ProcessGeoData(geoData,_hexagonDefinition).ToArray();
+            Hexagon[] hexagons = HexagonProcessor.ProcessArea(geoData,_hexagonDefinition).ToArray();
 
-            Assert.Equal(2, result.Length);
-
-            Assert.Equal(new HexagonLocationUV(0, 0), result[0].HexagonLocationUV);
-            Assert.Equal(1, result[0].Value);
-
-            Assert.Equal(new HexagonLocationUV(2, -1), result[1].HexagonLocationUV);
-            Assert.Equal(1, result[1].Value);
+            Assert.Equal(2, hexagons.Length);
+            Assert.Equal(new HexagonLocationUV(0, 0), hexagons[0].LocationUV);
+            Assert.Equal(new HexagonLocationUV(2, -1), hexagons[1].LocationUV);
         }
 
         /// <summary>
@@ -128,18 +122,14 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test
                 new PointXY(-10.0, 20.0)
             };
 
-            var loader = new AreaProcessor();
-
             //Act
-            var result = loader.ProcessGeoData(geoData, _hexagonDefinition).ToArray();
+            Hexagon[] hexagons = HexagonProcessor.ProcessArea(geoData,_hexagonDefinition).ToArray();
 
-            Assert.Equal(2, result.Length);
+            Assert.Equal(2, hexagons.Length);
 
-            Assert.Equal(new HexagonLocationUV(0, 0), result[0].HexagonLocationUV);
-            Assert.Equal(1, result[0].Value);
+            Assert.Equal(new HexagonLocationUV(0, 0), hexagons[0].LocationUV);
 
-            Assert.Equal(new HexagonLocationUV(2, -1), result[1].HexagonLocationUV);
-            Assert.Equal(1, result[1].Value);
+            Assert.Equal(new HexagonLocationUV(2, -1), hexagons[1].LocationUV);
         }
     }
 }
