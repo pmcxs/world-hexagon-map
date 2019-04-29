@@ -28,13 +28,5 @@ namespace WorldHexagonMap.Core.Domain
         }
 
 
-        public Dictionary<string, Hexagon> GetHexagonsDictionary()
-        {
-            var hexagons = new Dictionary<string, Hexagon>();
-
-            foreach (var hexagon in Hexagons) hexagons[hexagon.LocationUV.U + "_" + hexagon.LocationUV.V] = hexagon;
-
-            return hexagons;
-        }
     }
 }

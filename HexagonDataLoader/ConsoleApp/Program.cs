@@ -15,12 +15,12 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<ConsoleExporterOptions>(args)
+            Parser.Default.ParseArguments<HexagonDataLoaderOptions>(args)
                 .WithParsed(RunOptionsAndReturnExitCode);
 
         }
 
-        private static void RunOptionsAndReturnExitCode(ConsoleExporterOptions opts)
+        private static void RunOptionsAndReturnExitCode(HexagonDataLoaderOptions opts)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             LayersConfiguration layer = opts.GetLayersConfiguration();
@@ -32,16 +32,7 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
                 HexagonDefinition hexagonDefinition = opts.GetHexagonDefinition();
 
                 IEnumerable<GeoData> geoDataList = geoParser.ParseGeodataFromSource(layer, Path.Combine(opts.Input, layer.Source));
- 
-//                foreach
-//                
-//                foreach (PointXY[] geoCoordinates in geoData.Points)
-//                {
-//                    //PointXY[] pixelCoordinates = geoCoordinates.Select(p => GeoUtils.CoordinateToPixel(p.X, p.Y)).ToArray();
-
-                
-                
-                                
+  
                 IEnumerable<Hexagon> results = HexagonProcessor.ProcessHexagonsFromGeoData(geoDataList, hexagonDefinition, layer.Targets);
 
                 ExportResults(exporter, results, hexagonDefinition, mergeStrategy);

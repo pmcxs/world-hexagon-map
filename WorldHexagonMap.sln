@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldHexagonMap.HexagonData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test", "HexagonDataLoader\HexagonProcessors.Test\WorldHexagonMap.HexagonDataLoader.HexagonProcessors.Test.csproj", "{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldHexagonMap.MapTileGenerator.ConsoleApp", "MapTileGenerator\ConsoleApp\WorldHexagonMap.MapTileGenerator.ConsoleApp.csproj", "{A8C78AC6-554D-43BE-8FC9-4CB4E51CE162}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C78AC6-554D-43BE-8FC9-4CB4E51CE162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C78AC6-554D-43BE-8FC9-4CB4E51CE162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C78AC6-554D-43BE-8FC9-4CB4E51CE162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C78AC6-554D-43BE-8FC9-4CB4E51CE162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{0B52B2B4-84A6-4782-AB99-6982ADDDAC41} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
 		{16EF9809-317F-4A5F-83AA-7CC856BEFA1E} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
 		{91DBCDAE-3BEF-4C3B-96FB-75124989FC04} = {6890FF17-3D9A-484C-8CDA-CB8EA180B9A1}
+		{A8C78AC6-554D-43BE-8FC9-4CB4E51CE162} = {E7E3554F-E27B-4DC6-A304-07C41AECC314}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80A2AB6D-CAF4-4B3C-8B32-382D263D8BC0}

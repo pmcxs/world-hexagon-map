@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
 using Xunit;
@@ -200,7 +201,8 @@ namespace WorldHexagonMap.Core.Test
         [Fact]
         public void GetHexagonsInsideBoundingBox()
         {
-            IList<HexagonLocationUV> resultsA = HexagonService.GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(450, 100), _hexagonDefinition);
+            IList<HexagonLocationUV> resultsA = HexagonService
+                .GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(450, 100), _hexagonDefinition).ToList();
 
             Assert.Equal(resultsA[0], new HexagonLocationUV(0, 0));
             Assert.Equal(resultsA[1], new HexagonLocationUV(0, 1));
@@ -211,14 +213,16 @@ namespace WorldHexagonMap.Core.Test
             Assert.Equal(resultsA[6], new HexagonLocationUV(3, -2));
             Assert.Equal(resultsA[7], new HexagonLocationUV(3, -1));
 
-            IList<HexagonLocationUV> resultsB = HexagonService.GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(320, 20), _hexagonDefinition);
+            IList<HexagonLocationUV> resultsB = HexagonService
+                .GetHexagonsInsideBoundingBox(new PointXY(0, -20), new PointXY(320, 20), _hexagonDefinition).ToList();
 
             Assert.Equal(resultsB[0], new HexagonLocationUV(0, 0));
             Assert.Equal(resultsB[1], new HexagonLocationUV(1, -1));
             Assert.Equal(resultsB[2], new HexagonLocationUV(1, 0));
             Assert.Equal(resultsB[3], new HexagonLocationUV(2, -1));
 
-            IList<HexagonLocationUV> resultsC = HexagonService.GetHexagonsInsideBoundingBox(new PointXY(150, -20), new PointXY(320, 20), _hexagonDefinition);
+            IList<HexagonLocationUV> resultsC = HexagonService
+                .GetHexagonsInsideBoundingBox(new PointXY(150, -20), new PointXY(320, 20), _hexagonDefinition).ToList();
 
             Assert.Equal(resultsC[0], new HexagonLocationUV(1, -1));
             Assert.Equal(resultsC[1], new HexagonLocationUV(1, 0));

@@ -16,7 +16,7 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
             var jsonData = File.ReadAllText(filePath);
 
             var reader = new GeoJsonReader();
-
+            
             var featureCollection = reader.Read<FeatureCollection>(jsonData);
 
             return featureCollection.Features.Select(ConvertFeatureToGeoData);

@@ -27,7 +27,6 @@ namespace WorldHexagonMap.HexagonDataLoader.GeoDataParsers
                     Points = new PointXY[1][]
                 };
 
-
                 if (Math.Abs(sourceData.XOffset) > (decimal) 0.0 && Math.Abs(sourceData.YOffset) > (decimal) 0.0)
                     geodata.Points[0] = new[]
                     {

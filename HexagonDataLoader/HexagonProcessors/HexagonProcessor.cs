@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NetTopologySuite.Geometries;
 using WorldHexagonMap.Core.Domain;
 using WorldHexagonMap.Core.Services;
 using WorldHexagonMap.Core.Utils;
@@ -18,7 +19,7 @@ namespace WorldHexagonMap.HexagonDataLoader.HexagonProcessors
                 {
                     foreach (PointXY point in coordinates)
                     {
-                        (point.X, point.Y) = GeoUtils.CoordinateToPixel(point.X, point.Y);
+                        (point.X, point.Y) = TileSystem.LatLongToPixelXY(point.X, point.Y, 10);
                     }
                 }
                 

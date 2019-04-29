@@ -99,7 +99,7 @@ namespace WorldHexagonMap.Core.Services
             return du * dv > 0 ? Math.Abs(du + dv) : Math.Max(Math.Abs(du), Math.Abs(dv));
         }
 
-        public static IList<HexagonLocationUV> GetHexagonsInsideBoundingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
+        public static IEnumerable<HexagonLocationUV> GetHexagonsInsideBoundingBox(PointXY topLeftCorner, PointXY bottomRightCorner,
             HexagonDefinition hexagonDefinition)
         {
             var topLeftUV = GetHexagonLocationUVForPointXY(topLeftCorner, hexagonDefinition);
@@ -119,8 +119,6 @@ namespace WorldHexagonMap.Core.Services
 
             var columns = bottomRightUV.U - topLeftUV.U + 1;
 
-            var hexagons = new List<HexagonLocationUV>();
-
             for (var i = 0; i < columns; i++)
             {
                 var rows = i % 2 == 0 ? rowsEven : rowsOdd;
@@ -133,11 +131,10 @@ namespace WorldHexagonMap.Core.Services
 
                     var u = topLeftUV.U + i;
                     var v = topLeftUV.V + j - offset;
-                    hexagons.Add(new HexagonLocationUV(u, v));
+
+                    yield return new HexagonLocationUV(u, v);
                 }
             }
-
-            return hexagons;
         }
 
 

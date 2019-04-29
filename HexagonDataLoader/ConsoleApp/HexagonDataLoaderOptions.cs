@@ -9,7 +9,7 @@ using WorldHexagonMap.HexagonDataLoader.ResultExporters;
 
 namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 {
-    internal class ConsoleExporterOptions
+    internal class HexagonDataLoaderOptions
     {
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
         public bool Verbose { get; set; }
@@ -37,8 +37,6 @@ namespace WorldHexagonMap.HexagonDataLoader.ConsoleApp
 
         [Option(longName:"outputtype", Required = false, Default = OutputType.Console)]
         public OutputType OutputType { get; set; }
-        
-
         
         internal LayersConfiguration GetLayersConfiguration()
         {
