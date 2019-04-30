@@ -30,41 +30,54 @@ namespace WorldHexagonMap.MapTileGenerator.ConsoleApp
             
             HexagonDefinition hexagonDefinition = opts.GetHexagonDefinition();
             
-            //1. Get hexagons for this particular tile
+            //1. Get hexagons for a particular region
             
-            //1.1. Get Tile coordinates
+            //1.1. Get Bounding box coordinates
 
-            string[] tileSegments = opts.Tile.Split(":");
-
-            if (tileSegments.Length != 3)
+            BoundingBox bb;
+            
+            if(!string.IsNullOrEmpty(opts.Tile))
             {
-                throw new NotSupportedException($"A tile format must be supplied as z:x:y");
+                string[] tileSegments = opts.Tile.Split(":");
+
+                if (tileSegments.Length != 3)
+                {
+                    throw new NotSupportedException($"A tile format must be supplied as z:x:y");
+                }
+
+                bb = GeoUtils.Tile2BoundingBox(
+                    int.Parse(tileSegments[1]),
+                    int.Parse(tileSegments[2]),
+                    int.Parse(tileSegments[0]));
+                
             }
-
-            BoundingBox bb = GeoUtils.Tile2BoundingBox(
-                int.Parse(tileSegments[1]), 
-                int.Parse(tileSegments[2]),
-                int.Parse(tileSegments[0]));
-            
-            //1.2. Convert them to Pixel Coordinates
-
-            //PointXY nw = GeoUtils.CoordinateToPixel(bb.North, bb.West);
-            //PointXY se = GeoUtils.CoordinateToPixel(bb.South, bb.East);
-
+            else if (!string.IsNullOrEmpty(opts.East) && !string.IsNullOrEmpty(opts.West) &&
+                     !string.IsNullOrEmpty(opts.North) && !string.IsNullOrEmpty(opts.South))
+            {
+                bb = new BoundingBox
+                {
+                    East = double.Parse(opts.East),
+                    West = double.Parse(opts.West),
+                    North = double.Parse(opts.North),
+                    South = double.Parse(opts.South)
+                };
+            }
+            else
+            {
+                throw new NotSupportedException("Neither proper coordinates nor tile was supplied");
+            }
             
             (int pixelXTopLeft, int pixelYTopLeft) = TileSystem.LatLongToPixelXY(bb.North, bb.West, 10);
             (int pixelXBottomRight, int pixelYBottomRight) = TileSystem.LatLongToPixelXY(bb.South, bb.East, 10);
 
-            
-            PointXY nw = new PointXY(pixelXTopLeft, pixelYTopLeft);
-            PointXY se = new PointXY(pixelXBottomRight, pixelYBottomRight);
-            
+            var nw = new PointXY(pixelXTopLeft, pixelYTopLeft);
+            var se = new PointXY(pixelXBottomRight, pixelYBottomRight);
+
             //2. (Get hexagons for them)
 
             List<HexagonLocationUV> hexagonLocations = HexagonService.GetHexagonsInsideBoundingBox(nw, se, hexagonDefinition).ToList();
             
             //3. Calculate coordinates for them
-
 
             GeoJsonWriter writer = new GeoJsonWriter();
             
