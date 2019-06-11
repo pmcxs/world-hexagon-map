@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MapGenerator.Core\MapGenerator.Core.csproj" />
+      <ProjectReference Include="..\MapGenerator.GeoDataParsers\MapGenerator.GeoDataParsers.csproj" />
+      <ProjectReference Include="..\MapGenerator.HexagonDataExporters\MapGenerator.HexagonDataExporters.csproj" />
+      <ProjectReference Include="..\MapGenerator.HexagonDataImporters\MapGenerator.HexagonDataImporters.csproj" />
+      <ProjectReference Include="..\MapGenerator.MapExporters\MapGenerator.MapExporters.csproj" />
+    </ItemGroup>
+
+</Project>
